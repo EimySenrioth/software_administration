@@ -1,0 +1,20 @@
+20 Non-Functional Requirements
+Data Security: All collected and processed data must be encrypted at rest and in transit.
+Forensic-Level Security: End-to-end encryption (E2EE).
+Immutable Digital Chain of Custody: Every piece of data captured, analyzed, or exported must have a certified SHA-512 hash and timestamp.
+Operational Anonymity of the Investigator: Native support for VPN/Tor + automatic IP rotation.
+Counterintelligence Resistance: Automatic detection and blocking of tracking attempts.
+Offline Availability.
+Scalability for Large Cases.
+Tolerance for Outages.
+Professional and Technical Interface: Dashboard designed for analysts.
+Protection Against Evidence Tampering: Automatic detection of attempts to edit or inject false data.
+Sandbox Detection and Reverse Analysis: The system must self-destruct or enter "false positive" mode if it detects that it is being analyzed in a virtual or debug environment. Code obfuscation: Binary code and scripts obfuscated with multiple layers (VMProtect, Themida, or equivalent) to hinder reverse engineering.
+Memory dumping protection: Anti-memory dump mechanisms (anti-Process Explorer, anti-Cheat Engine, anti-DumpIt).
+Automatic key and certificate rotation: Daily generation and renewal of encryption keys and certificates.
+Keylogger and screen recorder detection: Automatic blocking or masking of sensitive input if capture tools are detected.
+Traffic analysis protection: Use of padding, timing randomization, and dummy traffic to hide communication patterns.
+Programmable self-destruction.
+Reverse honeypot mode: The system can generate false data or deceptive signals if it detects intrusion attempts.
+Internal researcher audit.
+API monitoring and encryption.

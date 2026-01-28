@@ -1,0 +1,56 @@
+50 Functionalities
+Module 1: Data Listener
+API Integration
+Verification of manipulated APIs
+Metadata Capture
+Listening for changes in the Public Registry of Commerce (new companies linked to officials).
+Detection of bank account openings or public financial transactions of family members.
+Monitoring of changes in properties and vehicles registered in the name of family members or acquaintances.
+Capture of public geolocations of officials (from social networks or apps).
+Listening for progress on specific tasks such as projects.
+Listening for money transfers.
+API Manager / Manual Configurator.
+
+Module 2: Network Analysis
+Construction of dynamic relationship graphs (officials ↔ family members ↔ companies).
+Massive cross-referencing of phone numbers and emails in multiple public databases.
+Cross-referencing of projects with information from APIs.
+Risk scoring by degree of closeness (direct family member = 100%, acquaintance = 60%, etc.).
+Detection of "shared accounts" or transfers between close circles.
+Mapping of closed groups or chats where officials and beneficiaries appear.
+Interactive visualization of graphs with zoom and risk filters.
+Daily graph updates with newly detected signals.
+Cross-referencing of eavesdropping information.
+Section of collected data filtered by project type and bureaucratic process for investigators.
+
+Module 3: Process Tracking
+Complete tracing of the lifecycle of each tender (announcement → award → payment) or bureaucratic process.
+Detection of direct awards without justification.
+Monitoring of unusual accelerations in bureaucratic deadlines.
+Historical record of each step with precise timestamps.
+Automatic comparison between submitted bids and the winning bid.
+Alerts if a process ignores lower or more competitive bids.
+Cross-referencing of processes with beneficiaries identified in the network graph. Detection of unexplained budget transfers between departments.
+Registration of approvals and digital signatures in sequence.
+Visual timeline by process with highlighted anomalies.
+Module 4: Relational Timelines (RTL)
+Generation of relational timelines by politician/institution/project.
+Calculation of the "noise threshold" (inconsistencies between declared and observed information).
+Temporal comparison: official statements vs. captured signals.
+Detection of approvals before official requests (Basic Time Paradox).
+Algorithms to predict the probability of corruption based on historical noise (Advanced Time Paradox).
+User-configurable threshold (e.g., >25% noise = high alert).
+Comparative visualization of timelines (official vs. observed).
+Detection of unexplained "skips" in the authorization flow. Recording of specific contradictions (e.g., "politician claims to be unaware of the company, but a family member is a partner").
+Export of RTLs as PDFs
+Module 5: Time Paradox
+Main dashboard with filters by date, politician, institution, and project.
+Chronological display of all RTLs with noise thresholds.
+Push/email/SMS alerts when the noise threshold is exceeded.
+Automatic flag: "Start Investigation Case" with collected evidence.
+Interactive risk map by state/municipality.
+Bulk export of reports for NGOs, journalists, or authorities.
+"Paradox" mode: highlights serious temporal inconsistencies in red.
+History of detected cases.
+Interactive interface with animations.
+Timeline with information sheets.

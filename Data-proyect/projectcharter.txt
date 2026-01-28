@@ -1,0 +1,22 @@
+Project Charter: Development of a Mobile Platform for Corruption Detection
+
+The “AcBi” project consists of the design and development of a cross-platform mobile application 
+(Android and iOS) aimed at researchers, journalists, and civil society organizations for the proactive 
+detection of corruption patterns in the public sector. The solution is based on a local-first, 
+offline approach, integrating five main functional modules: Data Listener (real-time capture and 
+monitoring of public data), Network Analysis (construction of dynamic relationship graphs and risk scoring), 
+Process Tracking (detailed monitoring of tenders and bureaucratic processes), Relational Time Lines 
+(RTL, temporal comparison of declarations vs. captured signals), and Time Paradox (central dashboard with 
+alerts and detection of chronological inconsistencies). The main objective is to provide a forensic intelligence 
+tool that allows for the identification of anomalies such as irregular awards, networks of hidden beneficiaries, 
+and “time paradoxes” (approvals prior to official requests).
+
+The platform incorporates 20 non-functional extreme security requirements, including end-to-end encryption (E2EE), 
+an immutable digital chain of custody using SHA-512 hashes and certified timestamps, operational anonymity through 
+native Tor/VPN integration and automatic IP rotation, resistance to counterintelligence (sandbox detection, 
+memory dump prevention, reverse honeypot, and programmable self-destruct), as well as protections against 
+evidence tampering and reverse analysis. The application is built on a Clean Architecture combined with a 
+local-first design, using Tauri 2.0 Mobile with a Rust backend for obfuscation. A key innovation is the 
+interactive API Manager, which allows the user (detective or investigator) to manually configure data sources 
+provided for the case (URLs, endpoints, parsing rules), visualize them in a dynamic diagram (with nodes and 
+connections), and validate them in real time.

@@ -1,0 +1,57 @@
+Design Overview
+Architecture: Clean Architecture + Local-First + Event-Driven, meaning it runs locally 
+on the mobile device without a central database. This was designed to maintain control over sensitive 
+country data and to control who has access to the app.
+
+Frontend: React, JavaScript
+Backend/Core: Rust for code obfuscation
+
+[ Mobile Device (Android / iOS) ]
+          |
+          v
++-------------------------------+
+|       User Interface (UI)     |   <-- React
+|  - Main Dashboard             |
+|  - Network Graphs & Timelines |
+|  +-------------------------+   |   <-- "API Manager" Section
+|  | Interactive API Diagram |   |       - Manual Add/Edit APIs
+|  | (vis.js or D3.js)       |   |       - Drag-and-Drop to Connect & Reorganize
+|  | - Nodes: Configured APIs|   |       - Test Button & Status Indicators
+|  | - Edges: Flow to Modules|   |       - Export/Import Encrypted Configs
+|  +-------------------------+   |
++-------------------------------+
+          ↑↓ (Tauri IPC / Commands) -It helps protect the application between the interface and the core logic.
+          |
++-------------------------------+
+|       Rust Core (Backend)     |   <-- Obfuscated business logic
+|                               |
+|  - Domain / Entities          |   <-- Core objects: Officials, Companies, Projects, Relationships, etc.
+|  - Use Cases (Modules 1–5)    |   <-- Data Listener, Network Analysis, Process Tracking, RTL, Time Paradox
+|  +-------------------------+   |   <-- API Configuration Service - For User "Detectives for Line Investigation Cases"
+|  | API Config Manager      |   |       - CRUD for manual APIs
+|  | - Store & Parse Configs |   |       - Dynamic Parsing (JSONPath / regex)
+|  | - Validation & Testing  |   |       - Resilience (retries, fallbacks)
+|  +-------------------------+   |
++-------------------------------+
+          ↑↓ (Local Event Channels)
+          |
++-------------------------------+
+|       Infrastructure Layer    |   <-- All local, encrypted, protected
+|  - Encrypted Local DB         |   <-- SQLCipher / rusqlite (AES-256-GCM at rest) -It is a solution for storing data locally in an encrypted manner.
+|  - Immutable Chain of Custody |   <-- SHA-512 hashes + certified timestamps
+|  - E2EE & libsodium           |    -End-to-End Encryption and libsodium provides robust cryptographic functions
+|  - Tor Integration (arti)     |   <-- Automatic IP rotation, padding, dummy traffic
+|  - VPN Support                |
+|  - Resilient API Client       |   <-- Now uses user-defined APIs (via Tor), for the anonymity of the Investigators
+|  - Anti-Forensic Features:    |
+|    - Sandbox / Dump Detection |
+|    - Keylogger / Screen Block |
+|    - Programmable Self-Destruct|
+|    - Inverse Honeypot (fake data)|
+|    - Code Obfuscation         |
++-------------------------------+
+          ↑↓ (Foreground / Limited Background) -This means that access to external sources (public APIs, logs, etc.) only occurs when the app is active.
+          |
+[ External Sources ] <-- Only when app is active or in foreground service
+  - APIs (configured manually by detective)
+  - Public registries, social media geolocations, financial records, etc.
