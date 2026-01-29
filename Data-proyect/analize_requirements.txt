@@ -1,0 +1,52 @@
+Software Requirements Specification (SRS) for AcBi
+===========================================
+1. Introduction
+1.1 Purpose
+The purpose of this Software Requirements Specification (SRS) 
+is to define the functional and non-functional requirements for "Paradox Mobile," 
+a cross-platform mobile application designed to assist investigators.
+
+1.2 Definitions, Acronyms, and Abbreviations
+
+API: Application Programming Interface – Interfaces for data exchange with external public sources.
+E2EE: End-to-End Encryption – Encryption ensuring data is secure from source to destination.
+RTL: Relational Time Lines – Chronological views comparing official and captured data.
+SHA-512: Secure Hash Algorithm 512 – A cryptographic hash function for data integrity.
+Tor: The Onion Router – A network for anonymous communication.
+VPN: Virtual Private Network – A secure tunnel for internet traffic.
+Noise Threshold: A configurable metric for detecting inconsistencies in data timelines.
+Honeypot Inverso: A defensive mechanism generating fake data upon intrusion detection.
+Local-First: Design where all processing occurs on the device, with optional external access.
+
+1.3 References
+
+IEEE Std 830-1998: Recommended Practice for Software Requirements Specifications.
+
+2. Overall Description
+2.1 Product Perspective
+
+It is a novel tool in the domain of anti-corruption technology.
+
+2.2 Product Functions
+The application enables users to:
+
+Capture and monitor public data changes (e.g., new companies, financial movements, geolocations) via configurable APIs.
+Build and visualize dynamic graphs of relationships between officials, families, and entities, with risk scoring.
+Track full lifecycles of bureaucratic processes, flagging anomalies like ignored bids or accelerated timelines.
+Generate relational timelines comparing official declarations to captured signals, calculating corruption probabilities.
+Provide a central dashboard
+
+2.3 User Classes and Characteristics
+
+Primary Users: Investigators and detectives – Experienced analysts requiring forensic tools; 
+assume technical proficiency in data interpretation but not in programming.
+
+3. Specific Requirements
+3.1 Functions Requirements are organized by module:
+
+Module 1: Data Listener (REQ-1.1 to REQ-1.10): Integrate/verify APIs; capture metadata/changes in registries, finances, properties, geolocations; monitor projects/funds; ensure API resilience.
+Module 2: Network Analysis (REQ-2.1 to REQ-2.10): Build/update graphs; cross-reference identifiers; score risks; detect transfers/groups; visualize/filter data.
+Module 3: Process Tracking (REQ-3.1 to REQ-3.10): Trace lifecycles; flag irregularities; compare offers; cross with networks; visualize timelines.
+Module 4: RTL (REQ-4.1 to REQ-4.10): Generate/compare timelines; calculate noise/paradoxes; detect contradictions; export as PDF.
+Module 5: Time Paradox (REQ-5.1 to REQ-5.10): Dashboard with filters/alerts; flag cases; interactive maps/timelines; export reports.
+API Manager (REQ-6.1 to REQ-6.5): Manual CRUD for APIs; dynamic parsing; validation; interactive diagram visualization.
