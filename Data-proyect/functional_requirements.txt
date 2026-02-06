@@ -1,37 +1,38 @@
 50 Functionalities
 Module 1: Data Listener
 API Integration
-Verification of manipulated APIs
+Verification of Manipulated APIs
 Metadata Capture
 Listening for changes in the Public Registry of Commerce (new companies linked to officials).
 Detection of bank account openings or public financial transactions of family members.
-Monitoring of changes in properties and vehicles registered in the name of family members or acquaintances.
-Capture of public geolocations of officials (from social networks or apps).
-Listening for progress on specific tasks such as projects.
-Listening for money transfers.
-API Manager / Manual Configurator.
+Monitoring of changes in properties and vehicles registered in the names of family members or acquaintances.
+API Editing: DELETE, EDIT
+Manipulated API Report
+OSINT INTEGRATION
+API MANAGER.
 
 Module 2: Network Analysis
 Construction of dynamic relationship graphs (officials ↔ family members ↔ companies).
-Massive cross-referencing of phone numbers and emails in multiple public databases.
-Cross-referencing of projects with information from APIs.
-Risk scoring by degree of closeness (direct family member = 100%, acquaintance = 60%, etc.).
+Graph filtering by politician and time period.
+Massive data cross-referencing.
+Cross-referencing of projects with information from Module 1.
+Risk scoring by degree of closeness.
 Detection of "shared accounts" or transfers between close circles.
-Mapping of closed groups or chats where officials and beneficiaries appear.
-Interactive visualization of graphs with zoom and risk filters.
-Daily graph updates with newly detected signals.
-Cross-referencing of eavesdropping information.
-Section of collected data filtered by project type and bureaucratic process for investigators.
 
+Mapping of closed groups or chats where officials and beneficiaries appear in lists.
+Interactive visualization of graphs with zoom.
+Graph update button.
+Filters
 Module 3: Process Tracking
-Complete tracing of the lifecycle of each tender (announcement → award → payment) or bureaucratic process.
-Detection of direct awards without justification.
+Tracing the lifecycle of the data collected for the case by day, in PDF table format.
+Tracing by name.
 Monitoring of unusual accelerations in bureaucratic deadlines.
-Historical record of each step with precise timestamps.
-Automatic comparison between submitted bids and the winning bid.
-Alerts if a process ignores lower or more competitive bids.
-Cross-referencing of processes with beneficiaries identified in the network graph. Detection of unexplained budget transfers between departments.
-Registration of approvals and digital signatures in sequence.
+Historical record of each data collection by package.
+AUTOMATIC COMPARISON BETWEEN SUBMITTED OFFERS AND THE WINNING ONE, BY FILE NAME
+Tracing of beneficiaries identified in the network graph.
+Tracing of budget transfers between departments
+Tracing of approvals.
+Preparation of information in timelines that encompass Module 3
 Visual timeline by process with highlighted anomalies.
 Module 4: Relational Timelines (RTL)
 Generation of relational timelines by politician/institution/project.

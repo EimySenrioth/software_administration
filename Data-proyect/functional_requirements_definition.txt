@@ -1,0 +1,1355 @@
+RF-001 Integration with APIs (Type 1)
+
+1. GENERAL INFORMATION
+Field                  Description
+Requirement ID         RF-001
+Name                   Integration with Public Governmental APIs (Type 1)
+Module                 Module 1: Data Listener
+Priority               High (Critical)
+Status                 Proposed
+Version                1.0
+Date                   02/02/2026
+
+2. DESCRIPTION
+
+2.1 General Description
+The system must allow the integration, configuration and consumption of public Mexican governmental APIs to capture data related to bureaucratic processes, tenders, budgets and asset declarations. Type 1 APIs are those officially provided by government institutions for public information consultation.
+
+Process:
+User configures API
+    ↓
+Click "Test Connection"
+    ↓
+System executes request via Tor/VPN
+    ↓
+Successful response?
+    ├─ YES → Parse data → Show preview → Enable "Save"
+    └─ NO  → Show error → Show suggestions → Disable "Save"
+
+Inputs:
+- Descriptive name of the API
+- Base URL of the endpoint
+- Query parameters
+- Authentication type (None, API Key, Bearer Token)
+- Credentials (if applicable, encrypted)
+- Update frequency (manual, hourly, daily, weekly)
+
+Outputs:
+- Format
+- Mandatory fields
+- No duplication of already configured endpoints
+- All configurations are stored encrypted locally (AES-256-GCM)
+
+Constraints:
+API credentials
+
+Source: Government
+
+
+RF-002: Detection of Manipulated / Compromised APIs
+
+1. GENERAL INFORMATION
+Field                  Description
+Requirement ID         RF-002
+Name                   Detection of Manipulated APIs
+Module                 Module 1: Data Listener
+Priority               High (Critical)
+Status                 Proposed
+Version                1.0
+Date                   02/02/2026
+
+2. DESCRIPTION
+
+2.1 General Description
+The system must automatically detect whether a governmental API has been compromised, manipulated or is returning suspicious data through cryptographic integrity validations, heuristic response analysis, and comparison against historical patterns. This requirement is critical to guarantee the reliability of collected evidence and to protect researchers from falsified or maliciously injected data.
+
+2.2 Process
+System performs API capture
+    ↓
+SSL Certificate Validation
+    ├─ Is the certificate valid and known?
+    │   ├─ YES → Continue
+    │   └─ NO  → CRITICAL ALERT → Pause capture
+    ↓
+Response Schema Validation
+    ├─ Does the structure match historical patterns?
+    │   ├─ YES → Continue
+    │   └─ NO  → WARNING ALERT → Log anomaly
+    ↓
+Heuristic Data Analysis
+    ├─ Are values within expected ranges?
+    │   ├─ YES → Continue
+    │   └─ NO  → MEDIUM ALERT → Flag suspicious records
+    ↓
+Data Volume Verification
+    ├─ Is the volume consistent with historical data?
+    │   ├─ YES → Continue
+    │   └─ NO  → LOW ALERT → Log for review
+    ↓
+Reliability Score Calculation
+    ├─ Score > 80    → Data TRUSTWORTHY
+    ├─ Score 50–80   → Data SUSPICIOUS (requires review)
+    └─ Score < 50    → Data NOT TRUSTWORTHY (automatically reject)
+    ↓
+Storage with Reliability Metadata
+
+2.3 Inputs
+Input                        Type       Description                                          Mandatory
+HTTP Response                Object     Full API response including headers, body and status Yes
+SSL Certificate              X.509      Server digital certificate                           Yes
+Historical Schemas           JSON       Previously validated response structures of this API Yes (after 1st capture)
+Historical Data              Array      Statistical sample of previous captures for heuristic analysis No (improves accuracy)
+Threshold Configuration      Object     Custom detection thresholds (volume, values, etc.)   No (uses defaults)
+List of Known Certificates   Array      SHA-256 of valid SSL certificates from government entities Yes
+
+2.4 Outputs
+Output                     Format         Description
+Reliability Score          Integer (0-100) Score of confidence in the integrity of captured data
+
+2.5 Mandatory Fields
+- Valid server SSL certificate
+- SHA-256 hash of the certificate
+- JSON/XML structure of the response
+- SHA-512 hash of the response body
+- Capture timestamp (ISO 8601)
+- API configuration ID (FK)
+- Result of each validation (PASS/FAIL)
+
+2.6 Constraints / Restrictions
+Constraint                  Description
+Accuracy                    False positive rate < 5% in normal conditions
+
+2.7 Sources
+- Government: SSL certificates of government entities (obtained from first manually verified capture)
+- User: Custom detection thresholds according to the investigation case
+- System: Historical capture records for statistical analysis
+
+RF-003: Extended Metadata Capture
+
+1. GENERAL INFORMATION
+Field                  Description
+Requirement ID         RF-003
+Name                   Extended Metadata Capture
+Module                 Module 1: Data Listener
+Priority               High
+Status                 Proposed
+Version                1.0
+Date                   02/02/2026
+
+2. DESCRIPTION
+
+2.1 General Description
+The system must automatically capture extended metadata from every request to governmental APIs, including network context, temporal, technical, and audit information. These metadata are essential to establish a digital chain of custody, validate the authenticity of evidence, detect manipulations, and provide complete forensic context for corruption investigations.
+
+2.2 Process
+Start
+  ↓
+Pre-request metadata capture
+  • Time, session, environment
+  ↓
+HTTP Request
+  ↓
+Response metadata capture
+  • Headers, status, network, SSL
+  ↓
+Data processing
+  • Parsing + hashes
+  ↓
+Chain of custody
+  • Signing + linked hash
+  ↓
+Secure storage
+  ↓
+Indexing and auditing
+
+2.3 Inputs
+Input                        Type          Description                                              Mandatory
+Full HTTP Response           HTTPResponse  Complete HTTP response object including headers, body, cookies  Yes
+API Configuration            Object        Active API configuration (URL, method, params, etc.)           Yes
+Device Status                Object        Battery, network, memory, available storage info              Yes
+Network Context              Object        Tor circuit, active VPN, exit node, latency                   Yes
+Executing User               String        Anonymized hash of the user/detective performing the capture   Yes
+Investigation Case           String (UUID) ID of the associated investigation case (if applicable)      No
+Start Timestamp              DateTime      Request start timestamp (UTC + local)                         Yes
+End Timestamp                DateTime      Process completion timestamp (UTC + local)                    Yes
+App Version                  String        Version of AcBi running (e.g. "0.0.001")                      Yes
+
+2.4 Outputs
+Output                     Format    Description
+Complete Metadata          JSON      JSON object containing all captured metadata, structured by categories
+
+2.5 Mandatory Fields
+Time Metadata:
+- timestamp_start_utc (ISO 8601)
+- timestamp_end_utc (ISO 8601)
+- timestamp_start_local (ISO 8601 with timezone)
+- timestamp_certified (RFC 3161)
+
+2.6 Restrictions
+Restriction                Description
+Immutability               Metadata CANNOT be modified after initial storage
+
+2.7 Sources
+- Operating System: Device information (battery, network, memory)
+- HTTP Server: Headers, cookies, SSL certificates
+- Tor/VPN: Exit node, circuit, latency
+- User: Investigation case ID (optional)
+- Application: Version, configuration, parsing method used
+- Network: Timestamp servers for RFC 3161 certification
+
+
+RF-004: Monitoring Changes in the Public Commercial Registry
+
+1. GENERAL INFORMATION
+Field                  Description
+Requirement ID         RF-004
+Name                   Monitoring Changes in the Public Commercial Registry (New Companies Linked to Public Officials)
+Module                 Module 1: Data Listener
+Priority               High
+Status                 Proposed
+Version                1.0
+Date                   02/02/2026
+
+2. DESCRIPTION
+
+2.1 General Description
+The system must automatically monitor Mexico's Public Commercial Registries (RPC) to detect the creation, modification, or dissolution of companies that may be linked to public officials under investigation. This functionality enables the identification of potential conflicts of interest, shell companies, hidden beneficiaries, and corruption networks through the analysis of corporate formation patterns and their relationship with officials and their close circles.
+
+2.2 Process
+Monitoring of RPC is initiated by configuring target states, officials, keywords, frequency, and retrospective period.
+The system periodically queries state-level RPC APIs and portals to obtain new incorporation deeds.
+Records are filtered by date and relevant information is extracted: partners, legal representatives, corporate purpose.
+Captured data is normalized: name standardization, RFC and address cleaning, format validation.
+Duplicate records are detected and removed to ensure dataset consistency.
+Normalized information is compared against target officials using exact matching, fuzzy matching, and cross-referencing by RFC, CURP, and address.
+Possible family relationships are also analyzed through surname matching.
+If no match is found, the record is archived without further processing.
+If a match exists, a risk analysis is performed considering dates, corporate purpose, capital, common partners, and tender context.
+If the calculated risk is low, the event is logged only as reference.
+If the risk exceeds the defined threshold, a high-risk alert is generated, the user is notified, and a case is created.
+Finally, the case is enriched with additional information: tenders, asset declarations, network analysis, and cross-referenced timelines.
+
+2.3 Inputs
+Input                           Type       Description                                                    Mandatory
+List of Target Officials        Array      List of officials to monitor (full name, RFC, CURP, position)  Yes
+States to Monitor               Array      List of Mexican states (e.g. ["CDMX", "Jalisco", "Nuevo León"]) Yes
+Retrospective Period            Integer    Days to look back (e.g. 90 days)                               Yes
+Query Frequency                 Enum       daily, weekly, biweekly, monthly                               Yes
+Additional Keywords             Array      Surnames, known family member names                            No
+Matching Thresholds             Object     Similarity configuration (fuzzy threshold, etc.)              No (uses defaults)
+RPC Endpoints by State          Object     URLs of state RPC APIs/portals                                 Yes
+Access Credentials              Object     API keys or credentials for RPC (if required)                  No
+
+2.4 Outputs
+Output                       Format         Description
+Detected Companies           Array          List of new/modified companies with match to officials
+Risk Score                   Integer (0-100) Corruption risk score per detected company
+Generated Alerts             Array          HIGH/CRITICAL alerts for high-risk companies
+Identified Relationships     Graph          Graph of relationships: official ↔ company ↔ partners
+Event Timeline               Array          Chronological events: incorporation → tender → award
+Findings Report              PDF/JSON       Detailed report with evidence and analysis
+Integration to Module 2      Object         Data for Network Analysis (nodes, edges)
+
+2.5 Mandatory Fields (MINIMUM 3)
+Captured Company Data:
+- razon_social (legal company name)
+- rfc_empresa (company RFC)
+- fecha_constitucion (incorporation deed date)
+- estado (federal entity of the RPC)
+- folio_mercantil (commercial registry folio number)
+- capital_social (declared share capital)
+- objeto_social (description of corporate purpose)
+
+Partners/Shareholders Data:
+- nombre_completo (partner full name)
+- rfc_socio (partner RFC)
+- curp (CURP of partner, if available)
+- porcentaje_participacion (percentage of shares)
+- tipo_socio (natural/legal person)
+- es_representante_legal (boolean)
+
+Detection Metadata:
+- fecha_deteccion (detection date)
+- matching_method (exact, fuzzy, RFC, etc.)
+- matching_score (0-100, match confidence)
+- funcionario_matched (official matched)
+- risk_score (risk score 0-100)
+
+2.6 Restrictions
+Restriction                           Description
+Availability of APIs and OSINT sources Agreement
+
+2.7 Sources
+- Government: State Public Commercial Registries (SIGER, RPPCDMX, etc.)
+- User: List of target officials and monitoring configuration
+- Module 2: Existing relationship network to enrich context
+- Module 3: Active tenders for temporal cross-referencing
+
+RF-005: Detection of Bank Account Openings and Public Financial Movements of Relatives
+
+1. GENERAL INFORMATION
+Field                  Description
+Requirement ID         RF-005
+Name                   Detection of Bank Account Openings or Public Financial Movements of Relatives
+Module                 Module 1: Data Listener
+Priority               High
+Status                 Proposed
+Version                1.0
+Date                   02/02/2026
+
+2. DESCRIPTION
+
+2.1 General Description
+The system must automatically monitor public financial data sources in Mexico to detect bank account openings, unusual financial movements, asset transfers, and changes in tax declarations involving public officials under investigation, their direct relatives (spouse, children, parents, siblings), and close circles (godparents, known partners). This functionality enables the identification of illicit enrichment, money laundering, patrimonial conflicts of interest, and concealment of resources through the analysis of anomalous financial patterns and asset changes incompatible with declared income.
+
+2.2 Process
+Start of Financial Monitoring
+    ↓
+CONFIGURATION OF MONITORING
+    • Target officials and relatives
+    • Public financial data sources
+    • Query frequency
+    • Patrimonial anomaly thresholds
+    • Historical analysis period
+    ↓
+CAPTURE OF PUBLIC FINANCIAL DATA
+    • Asset declarations
+    • Modification declarations
+    • Published sanctions/fines
+    • Public tax liens/debts
+    • Government contracts and payments
+    ↓
+NORMALIZATION AND STRUCTURING
+    • Standardize amounts (to MXN)
+    • Normalize dates (ISO 8601)
+    • Clean RFCs and CURPs
+    • Classify asset types
+    • Validate data consistency
+    ↓
+MATCHING WITH OFFICIALS AND RELATIVES
+    • Identify declarant (official)
+    • Cross-reference with known relatives
+    • Matching by RFC/CURP
+    • Detect spouses and dependents
+    ↓
+Match found?
+    ├─ NO  → [Archive]
+    └─ YES → ANALYSIS OF ANOMALIES
+                • Patrimonial growth
+                • Income incompatibility
+                • Undeclared assets
+                • Family transfers
+                • Timing with tenders
+                ↓
+        Anomaly > Threshold?
+            ├─ NO  → [Register] [Normal]
+            └─ YES → GENERATE ALERT
+                        • HIGH alert
+                        • Notify user
+                        • Create case
+                        • Financial timeline
+                        ↓
+                 ENRICHMENT
+                    • Cross-reference tenders
+                    • Analyze family network
+                    • Calculate variation
+                    • Detect patterns
+
+2.3 Inputs
+Input                           Type       Description                                                      Mandatory
+List of Target Officials        Array      Officials to monitor (name, RFC, CURP, position, agency)        Yes
+List of Relatives               Array      Known relatives (name, RFC, CURP, relationship to official)    No
+Financial Data Sources          Object     URLs of asset declarations APIs, public SAT, CNBV, etc.         Yes
+Query Frequency                 Enum       monthly, quarterly, yearly (declarations are periodic)          Yes
+Historical Analysis Period      Integer    Years back to analyze evolution (e.g. 3 years)                  Yes
+Anomaly Thresholds              Object     Configuration of suspicious growth %, income incompatibility, etc. No (uses defaults)
+Asset Types to Monitor          Array      ["real estate", "vehicles", "accounts", "investments", "companies"] Yes
+Access Credentials              Object     API keys for platforms requiring authentication                 No
+
+2.4 Outputs
+Output                              Format         Description
+Detected Patrimonial Changes        Array          List of changes in assets of officials/relatives
+Financial Anomaly Score             Integer (0-100) Suspicion score of illicit enrichment
+
+2.5 Mandatory Fields
+Captured Patrimonial Declaration Data (MINIMUM 3):
+
+* declarante_nombre (full name of the official)
+* declarante_rfc (official's RFC)
+* declarante_cargo (current position)
+* declarante_dependencia (institution where they work)
+* tipo_declaracion (initial, modification, conclusion)
+* fecha_declaracion (submission date)
+* ejercicio_fiscal (declared fiscal year)
+* ingreso_neto_anual (total declared net income)
+* activos_totales (sum of all assets)
+* pasivos_totales (sum of all liabilities)
+* patrimonio_neto (assets - liabilities)
+
+2.6 Restrictions
+Restriction                Description
+OSINT                      NO access to private banking information protected by banking secrecy
+
+2.7 Sources
+* Federal Government: Declaranet (National Transparency Platform)
+* Federal Government: SAT - Public taxpayers registry
+* Federal Government: CNBV - Published sanctions
+* Federal Government: CompraNet - Amounts paid to suppliers
+* State Governments: State transparency portals
+* User: List of target officials and known relatives
+* Module 2: Relationship network to identify suspicious transfers
+* Module 3: Awarded tenders for temporal cross-referencing
+
+
+RF-006: Monitoring Changes in Properties and Vehicles Registered to Relatives or Known Persons
+
+1. GENERAL INFORMATION
+Field                  Description
+Requirement ID         RF-006
+Name                   Monitoring Changes in Properties and Vehicles Registered to Relatives or Known Persons
+Module                 Module 1: Data Listener
+Priority               Medium-High
+Status                 Proposed
+Version                1.0
+Date                   02/02/2026
+
+2. DESCRIPTION
+
+2.1 General Description
+The system must automatically monitor public real estate records (Registro Público de la Propiedad - RPP) and vehicle registries (REPUVE) in Mexico to detect acquisitions, transfers, sales, or changes of ownership involving public officials under investigation, their direct relatives (spouse, children, parents, siblings), and close circles (known partners, godparents). This functionality enables the identification of suspicious asset transfers, use of straw men to conceal assets, acquisitions incompatible with declared income, and patterns of asset concealment through comparative analysis of public records, asset declarations, and temporal context with awarded tenders.
+
+2.2 Process
+Start of Properties and Vehicles Monitoring
+    ↓
+CONFIGURATION OF MONITORING
+    • Target officials and relatives
+    • States/municipalities to monitor
+    • Types of assets (real estate, vehicles)
+    • Query frequency
+    • Retrospective period (e.g. 2 years)
+    • Suspicious value thresholds
+    ↓
+CAPTURE OF PUBLIC REGISTRY DATA
+    • Query RPP (Property Registry)
+    • Query REPUVE (Vehicle Registry)
+    • Filter by target names/RFCs
+    • Extract deed/card data
+    • Capture movement dates
+    • Identify type of operation
+    ↓
+NORMALIZATION AND STRUCTURING
+    • Standardize addresses
+    • Normalize amounts (to MXN)
+    • Clean RFCs and names
+    • Classify property types
+    • Validate market values
+    • Detect duplicates
+    ↓
+MATCHING WITH OFFICIALS AND RELATIVES
+    • Identify owner/holder
+    • Cross-reference with target officials
+    • Cross-reference with known relatives
+    • Matching by RFC/CURP/name
+    • Identify co-owners
+    ↓
+Match found?
+    ├─ NO  → [Archive]
+    └─ YES → ANALYSIS OF ANOMALIES
+                • Incompatible value
+                • Timing with tender
+                • Family transfer
+                • Not declared (RTL)
+                • Straw man pattern
+                ↓
+        Anomaly > Threshold?
+            ├─ NO  → [Register] [Normal]
+            └─ YES → GENERATE ALERT
+                        • HIGH alert
+                        • Notify user
+                        • Create case
+                        • Visual timeline
+                        ↓
+                 ENRICHMENT
+                    • Cross-reference declarations
+                    • Analyze property network
+                    • Crossed timeline
+                    • Calculate appreciation
+
+2.3 Inputs
+Input                           Type       Description                                                    Mandatory
+List of Target Officials        Array      Officials to monitor (name, RFC, CURP, position)              Yes
+List of Relatives               Array      Known relatives (name, RFC, CURP, relationship)               No
+States to Monitor               Array      Mexican states to query RPP (e.g. ["CDMX", "Jalisco"])        Yes
+Types of Assets                 Array      ["real estate", "vehicles"]                                   Yes
+Query Frequency                 Enum       monthly, quarterly (registries update slowly)                 Yes
+Retrospective Period            Integer    Years back to search for changes (e.g. 2 years)               Yes
+Value Thresholds                Object     Minimum value of assets considered suspicious (e.g. properties >$500k) No (uses defaults)
+RPP/REPUVE Endpoints            Object     URLs of registry APIs/portals by state                        Yes
+Access Credentials              Object     Credentials if registries require authentication              No
+
+2.4 Outputs
+Output                              Format         Description
+Detected Assets                     Array          List of new or modified properties/vehicles linked to officials/relatives
+Patrimonial Anomaly Score           Integer (0-100) Suspicion score of irregular transfer
+
+2.5 Mandatory Fields
+Captured Real Estate Data (MINIMUM 3):
+
+* tipo_inmueble (house, apartment, land, commercial premises, warehouse, etc.)
+* direccion_completa (street, number, neighborhood, postal code, municipality, state)
+* coordenadas_gps (latitude, longitude - if available)
+* superficie_terreno_m2 (land area in square meters)
+* superficie_construccion_m2 (construction area in square meters)
+* valor_catastral (official cadastral value in MXN)
+* valor_operacion (declared purchase/sale value in deed)
+* folio_real (folio number in RPP)
+* numero_escritura (public deed number)
+* fecha_escritura (deed signing date)
+* fecha_registro (registration date in RPP)
+* notario_numero (notary number)
+* tipo_operacion (sale, donation, inheritance, adjudication, exchange)
+
+2.7 Restrictions
+Restriction                Description
+OSINT                      Unique source
+
+RF-007: API EDITION - DELETE, EDIT
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-API-002
+Name                   API Edition - DELETE and EDIT functions
+Module                 API Management
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+System for complete API management that allows authorized users to delete and edit existing API configurations in the system catalog. Includes security validations, version control, and change auditing.
+
+3. PROCESS
+
+1. Access to the module: User logs in with authorized credentials
+
+2. API selection: User searches and selects the API to modify/delete
+
+3. EDIT:
+
+   * System displays form with current data
+   * User modifies allowed fields
+   * System validates changes
+   * System registers audit trail
+   * System applies changes and generates new version
+
+4. DELETE:
+
+   * User requests deletion
+   * System checks for active dependencies
+   * System requests confirmation
+   * System performs logical/physical deletion
+   * System logs the action in audit trail
+
+4. OUTPUTS
+
+* Successful API update confirmation
+* Successful API deletion confirmation
+
+5. SOURCE
+Government
+
+6. RESTRICTIONS
+Investigation case permissions
+
+
+RF-008: MANIPULATED API REPORT
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-API-003
+Name                   Manipulated API Report
+Module                 API Audit and Reporting
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Reporting system that displays the complete history of manipulations (creation, editing, deletion) performed on system APIs. Allows tracking of changes and identification of responsible users.
+
+3. PROCESS
+
+1. Access to reporting module: Authorized user enters the reporting system
+
+2. Filter configuration: User defines search criteria:
+
+   * Date range
+   * Operation type (creation, edit, deletion)
+   * Specific API or all
+   * User who performed the action
+   * Operation status (success/failed)
+
+3. Report generation: System queries audit log and processes information
+
+4. Visualization: System presents data in table/dashboard format
+
+5. Export (optional): User downloads the report
+
+4. OUTPUTS
+
+* On-screen visual report with manipulation table
+* PDF export
+
+Details of each manipulation:
+
+* Exact timestamp
+* Responsible user
+
+5. SOURCE
+Investigator's research.
+RTL Module.
+
+6. RESTRICTIONS
+Reports cannot be modified, deleted, or edited.
+
+
+RF-009: OSINT INTEGRATION
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-OSINT-001
+Name                   Open Source Intelligence (OSINT) Integration
+Module                 Intelligence and Threat Analysis
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Integration system with open source intelligence (OSINT) sources to collect, analyze and correlate information to support requirements 4, 5 and 6.
+
+3. PROCESS
+
+1. Configuration of OSINT sources
+2. Automated collection
+3. Filters
+4. Data enrichment
+
+4. OUTPUTS
+Normalized OSINT data feed for SIEM (Security Information and Event Management) and SOAR (Security Orchestration, Automation, and Response).
+
+5. SOURCE
+
+* Public OSINT sources
+
+6. RESTRICTIONS
+Applicable laws according to the investigation case.
+
+
+RF-010: API MANAGER
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-API-001
+Name                   API Manager - Dashboard with Embedded Code Terminal
+Module                 API Management and Administration
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Centralized API management platform that integrates an interactive dashboard with an embedded code terminal. Enables complete lifecycle management of APIs (create, view, edit, delete, monitor) and provides real-time code execution and endpoint testing capabilities through an integrated terminal. Facilitates both visual and programmatic API management from a single interface.
+
+3. PROCESS
+
+1. Dashboard access:
+
+   * User authenticates with credentials
+   * System loads main dashboard with overall API overview
+
+2. API visualization:
+
+   * Dashboard displays complete catalog of registered APIs
+   * Shows real-time metrics (usage, performance, status)
+   * Displays consumption graphs and statistics
+
+3. API Management (graphical interface):
+
+   * Create new API via visual form
+   * Edit existing API configurations
+   * Delete APIs with confirmation
+   * Configure endpoints, authentication and permissions
+   * Manage versions
+
+4. Integrated code terminal:
+
+   * User opens embedded terminal in the dashboard
+   * Executes commands for programmatic API management
+   * Performs real-time endpoint testing
+   * Runs batch configuration scripts
+   * Views logs and responses in console
+
+4. OUTPUTS
+
+* Interactive dashboard
+* Code terminal
+
+5. SOURCE
+RF-001
+
+RF-011: DYNAMIC RELATIONSHIP GRAPH CONSTRUCTION
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-GRAFO-001
+Name                   Dynamic Relationship Graph Construction (Officials ↔ Relatives ↔ Companies)
+Module                 Relationship Analysis and Data Intelligence
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Dynamic graph visualization and analysis system that allows identifying, mapping and analyzing connections between public officials, their relatives and associated companies. Uses network analysis techniques to detect patterns.
+
+3. PROCESS
+
+* System collects data from multiple sources
+* Creates nodes for each identified entity
+* Data enrichment
+* Automated analysis
+
+4. OUTPUTS
+Differentiated nodes ready for visualization
+
+5. SOURCES
+Module 1
+
+6. RESTRICTIONS
+Availability of information collected from Module 1
+
+
+RF-012: GRAPH FILTER BY POLITICIAN AND TIME
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-GRAFO-002
+Name                   Graph Filter by Politician and Time
+Module                 Relationship Analysis and Data Intelligence
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Advanced graph filtering system for relationship graphs that allows the user to refine and focus the visualization.
+
+3. PROCESS
+
+1. Access to the filters panel:
+
+   * User accesses the graph visualization module
+   * System displays filter panel with available options
+
+2. Filter configuration
+
+4. OUTPUTS
+
+* Filtered graph
+
+5. SOURCE
+
+* Graph database with information
+
+6. RESTRICTIONS
+All relationships must have a start timestamp
+
+
+RF-013: MASSIVE DATA CROSS-REFERENCING
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-DATA-001
+Name                   Massive Data Cross-Referencing
+Module                 Big Data Processing and Analysis
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Massive data processing and correlation system from multiple sources.
+
+3. INTERNAL PROCESS
+
+1. Configuration of data sources based on APIs and OSINT
+2. Data extraction
+3. Transformation and normalization
+4. Cross-referencing process
+5. Analysis and correlation
+6. Validation
+
+4. OUTPUTS
+Data for RF-011
+
+5. SOURCE
+Module 1
+
+6. RESTRICTIONS
+Quality of the data found to perform the cross-referencing
+
+
+RF-014: CROSS-REFERENCING PROJECTS WITH MODULE 1 INFORMATION
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-INTEG-001
+Name                   Cross-Referencing Projects with Module 1 Information
+Module                 Data Integration and Correlation
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Integration and correlation system that allows cross-referencing project information (contracts, tenders, investments, public works) with Module 1 data.
+
+3. PROCESS
+
+1. Extraction of project data
+2. Extraction of data from Module 1 and RF-013
+3. Normalization and preparation
+4. Cross-referencing and correlation process
+5. Pattern detection
+
+4. OUTPUTS
+Information for public projects filter
+
+5. SOURCE
+
+* Module 1 and RF-013
+
+6. RESTRICTIONS
+Information must be available from the sources
+
+
+RF-015: RISK SCORING BY DEGREE OF PROXIMITY
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-RISK-001
+Name                   Risk Scoring by Degree of Proximity
+Module                 Risk Assessment and Scoring
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Automated risk scoring system that evaluates the probability of conflict of interest, corruption or irregularity based on the degree of proximity or closeness between entities (officials, relatives, companies, projects). Uses basic multifactorial scoring algorithms that consider: distance in the relationship graph (degrees of separation), type of link, temporal context, economic magnitude and other risk factors to generate a numerical score that prioritizes cases for investigation and audit.
+
+3. PROCESS
+
+1. Identification of relationships
+
+Definition of scoring parameters:
+
+* Administrator configures weighting matrix considering:
+
+  * Degree of proximity (0, 1, 2, 3+ degrees of separation)
+  * Type of link (direct, family, corporate, etc.)
+  * Official's role (senior management, middle, operational)
+  * Involved amount (project, contract, transaction)
+  * Temporal context (during term, before, after)
+  * Sensitive sector (health, infrastructure, defense, etc.)
+
+4. OUTPUTS
+
+* Matrix score
+
+5. RESTRICTIONS
+Basic formula for a basic score
+
+RF-016: DETECTION OF SHARED ACCOUNTS OR TRANSFERS BETWEEN CLOSE CIRCLES
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-DETECT-001
+Name                   Detection of Shared Accounts or Transfers between Close Circles
+Module                 Financial Analysis and Anomaly Detection
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Detects suspicious patterns of shared bank account usage and monetary transfers between individuals who are part of close circles.
+
+3. PROCESS
+Filters the output of RF-014 to search for patterns.
+
+4. OUTPUTS
+Description of the detected typology: circles
+
+5. SOURCE
+RF-014
+
+6. RESTRICTIONS
+RF-014 must be operational and delivering information.
+
+
+RF-017: MAPPING OF CLOSED GROUPS WHERE OFFICIALS AND BENEFICIARIES APPEAR IN LISTS
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-CLUSTER-001
+Name                   Mapping of Closed Groups where Officials and Beneficiaries Appear in Lists
+Module                 Cluster Analysis and Network Detection
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system identifies patterns of people appearing in multiple records.
+
+3. PROCESS
+An algorithm is built that identifies a person's name, lists people orbiting around them, and creates various conditions to search for them in RF-013.
+
+4. OUTPUTS
+Found data
+
+5. SOURCE
+RF-013 which provides the information
+
+6. RESTRICTIONS
+
+* Algorithmic – due to time limitations, the goal is to implement existing algorithms.
+
+
+RF-018: INTERACTIVE GRAPH VISUALIZATION WITH ZOOM
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-VIS-001
+Name                   Interactive Graph Visualization with Zoom
+Module                 Data Visualization and Exploration
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+Advanced interactive graph visualization system for relationship networks that allows users to explore complex networks.
+
+3. PROCESS
+
+1. Initial graph loading:
+
+   * User accesses the visualization module
+   * System loads the graph according to parameters
+
+4. OUTPUTS
+
+* Interactive visualization canvas/viewport
+
+5. SOURCE
+Input data
+
+6. RESTRICTIONS
+Scalability: 20–40 nodes
+
+
+RF-019: GRAPH REFRESH BUTTON
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-VIS-002
+Name                   Graph Refresh Button
+Module                 Data Visualization and Exploration
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system incorporates an interactive button that allows the user to refresh or update the visualized graph in real time, incorporating changes in the underlying data.
+
+3. PROCESS
+
+1. The user accesses the visualization module and selects the refresh button.
+
+2. The system queries the updated data sources (e.g., new detections or mappings).
+
+3. The graph is reloaded in the canvas/viewport, preserving previous configurations such as zoom or filters.
+
+4. OUTPUTS
+Updated graph in the interactive interface, with possible notifications of changes (e.g., "Update completed: X nodes modified").
+
+5. SOURCE
+Input data from RF-013 and RF-014
+
+6. RESTRICTIONS
+Scalability limited to 20–40 nodes
+
+
+RF-020: FILTERS SECTION
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-VIS-003
+Name                   Filters Section
+Module                 Data Visualization and Exploration
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system incorporates a dedicated interactive filters section that allows the user to refine the graph visualization.
+
+3. PROCESS
+
+1. The user accesses the visualization module and selects the filters section (e.g., via a side panel or dropdown).
+
+2. The system presents filter options (e.g., by entity type, date range, transfer amounts, or presence in lists).
+
+3. When filters are applied, the system updates the graph in the canvas/viewport, reloading only the relevant elements.
+
+4. OUTPUTS
+Filtered graph in the interactive interface
+
+5. SOURCE
+Input data
+
+6. RESTRICTIONS
+Filters will be enabled only if there is normalized data available.
+
+RF-021: LIFECYCLE TRACKING OF COLLECTED CASE DATA BY DAY, PDF TABLE FORMAT
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-REPORT-001
+Name                   Lifecycle Tracking of Collected Case Data by Day, PDF Table Format
+Module                 Reports and Data Export
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system generates a lifecycle trace of the data collected in a specific case, organized by days, in exportable table format to PDF.
+
+3. PROCESS
+
+1. The user selects a case or dataset (e.g., from the visualization module).
+
+2. The system collects and sorts the data by date/day, tracing lifecycle stages (e.g., ingestion, filtering, detection, mapping).
+
+3. A structured table is generated and exported to PDF, applying any available filters.
+
+4. OUTPUTS
+PDF file containing chronological tables of the data lifecycle
+
+5. SOURCE
+Input data
+
+6. RESTRICTIONS
+Limited to cases with manageable, relevant data volumes.
+
+
+RF-022: TRACKING BY NAMES
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-REPORT-002
+Name                   Tracking by Names
+Module                 Reports and Data Export
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system generates a detailed trace of entities, connections or patterns associated with specific names.
+
+3. PROCESS
+
+1. The user selects a name or set of names (e.g., from the visualization module or filters).
+
+2. The system collects and organizes the data linked to those names, tracing connections, transfers or appearances in lists.
+
+3. A structured table organized by name is generated and exported to PDF, applying any available filters.
+
+4. OUTPUTS
+PDF file with tables organized by names
+
+5. SOURCE
+Input data and RF-021
+
+6. RESTRICTIONS
+Limited to traces with manageable data volumes
+
+
+RF-023: MONITORING OF UNUSUAL ACCELERATIONS IN BUREAUCRATIC DEADLINES
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-DETECT-002
+Name                   Monitoring of Unusual Accelerations in Bureaucratic Deadlines
+Module                 Financial Analysis and Anomaly Detection
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system monitors and detects unusual accelerations in bureaucratic process deadlines by comparing captured dates.
+
+3. PROCESS
+
+1. The system collects bureaucratic deadline data from relevant sources (e.g., procedure registries).
+
+2. An algorithm is applied to compare current deadlines against historical or expected durations.
+
+3. Results are cross-referenced with previous detections (e.g., close circles or closed groups) and alerts are generated if correlated with suspicious entities.
+
+4. OUTPUTS
+Start and end dates of detected accelerated processes
+
+5. SOURCE
+RF-013 for the data to be used
+
+6. RESTRICTIONS
+Dependent on availability of data: start and end dates detected
+
+
+RF-024: HISTORICAL RECORD OF DATA COLLECTIONS BY BATCH/PACKAGE
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-AUDIT-001
+Name                   Historical Record of Data Collections by Package
+Module                 Data Audit and Traceability
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system must maintain a complete and auditable historical record of every data collection performed in batches/packages.
+
+3. PROCESS
+
+1. Every time a data collection is executed (manual or scheduled), the system creates a new "package".
+
+2. All package metadata is automatically recorded.
+
+4. OUTPUTS
+Historical table containing the main fields:
+
+* Package ID
+* Start / end date and time
+
+5. SOURCE
+Module 1
+
+6. RESTRICTIONS
+Use of a simple relational database.
+
+
+RF-025: AUTOMATIC COMPARISON BETWEEN SUBMITTED BIDS AND THE WINNING BID, BY FILE NAME
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-ANALYZE-001
+Name                   Automatic Comparison between Submitted Bids and the Winning Bid, by File Name
+Module                 Financial Analysis and Anomaly Detection
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system performs an automatic comparison between the bids submitted in a process (e.g., tender or procurement) and the winning bid, by price, using the collected data.
+
+3. PROCESS
+The user queries the RTL records and PDFs to perform a manual inspection.
+
+4. OUTPUTS
+PDF generated as in RF-021
+
+5. SOURCE
+Processed data
+
+6. RESTRICTIONS
+Manual inspection required
+
+
+RF-026: TRACING OF IDENTIFIED BENEFICIARIES IN THE NETWORK GRAPH
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-REPORT-003
+Name                   Tracing of Identified Beneficiaries in the Network Graph
+Module                 Reports and Data Export
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   05/02/2026
+
+2. DESCRIPTION
+The system generates a trace of the beneficiaries identified in the network graph (e.g., people or entities that receive benefits in contexts of transfers, closed groups or detected anomalies), organized by their connections in the graph.
+
+3. PROCESS
+The system takes the filtered data and prepares it for visualization.
+The user uses Module 3 to view the historical trace.
+
+4. OUTPUTS
+Interactive graph
+
+5. SOURCE
+Input data
+
+6. RESTRICTIONS
+Visualization limited by blocks / chunks
+
+
+RF-027: TRACING OF BUDGETARY TRANSFERS BETWEEN GOVERNMENT AGENCIES
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-TRACK-004
+Name                   Tracing of Budgetary Transfers Between Agencies
+Module                 Module 3: Process Tracking (and Module 1: Data Listener)
+Priority               High
+Status                 To be defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must allow tracing and monitoring of financial flows (budgetary transfers) that occur between different government agencies or public entities.
+
+3. PROCESS
+
+1. Ingestion: Module 1 (Data Listener) captures official records of budgetary movements (transfers, reallocations, fund releases) from official sources or financial APIs.
+
+2. Processing: The system links each transaction to the sending and receiving agency. Module 2 (Network Analysis) is used to establish "finances" or "transfers_to" relationships between institution nodes.
+
+3. Tracing: Module 3 organizes this data chronologically
+
+4. OUTPUTS
+
+* Timeline visualization
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+
+* Nomenclature Matching: The system must standardize agency names
+
+
+RF-028: APPROVAL CHAIN TRACING
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-TRACK-005
+Name                   Tracing of Approvals and Signature Chain
+Module                 Module 3: Process Tracking
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must generate a sequential and immutable trace of all approvals and validations associated with a file or administrative process.
+
+3. PROCESS
+
+1. Metadata Extraction
+
+Chronological Ordering: Module 3 sorts approval events sequentially (Step 1 → Step 2 → Step N), based on timestamps
+
+4. OUTPUTS
+
+* Approval Chain Visualization
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+Only if the APIs provide this information
+
+
+RF-029: PREPARATION OF INFORMATION IN COMPREHENSIVE TIMELINES (MODULE 3)
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-VISUAL-006
+Name                   Preparation of Information in Comprehensive Timelines (Module 3)
+Module                 Module 3: Process Tracking
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must consolidate and structure all processed information within Module 3.
+
+3. PROCESS
+
+1. Data Aggregation: The system collects scattered events from Module 3: transfer dates (inflows/outflows), approval records, official document timestamps, and anomaly alerts.
+
+2. Temporal Normalization: All date and time formats from different sources are standardized to a common timeline.
+
+3. Layer Classification: Information is organized into categories or "lanes" within the timeline (e.g., Financial Layer, Administrative Layer, Legal/Beneficiaries Layer) to avoid visual overload.
+
+4. Synchronization: Related events are linked
+
+4. OUTPUTS
+
+* Interactive Timeline
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+Performance: The timeline must efficiently render hundreds of events without crashing the browser.
+
+
+RF-030: VISUAL TIMELINE PER PROCESS WITH HIGHLIGHTED ANOMALIES
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-VISUAL-007
+Name                   Visual Timeline per Process with Highlighted Anomalies
+Module                 Module 3: Process Tracking (Visualization)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must generate a specific visual timeline for each selected process or file, graphically highlighting any detected deviation, irregularity or suspicious behavior.
+
+3. PROCESS
+
+1. Process Selection: The user selects a specific file or case within Module 3.
+
+2. Interactive Detail: When interacting with a highlighted anomaly, a card is displayed with the technical justification of why it is considered a risk.
+
+4. OUTPUTS
+
+* Interactive Timeline
+
+5. SOURCE
+
+* Processed input data, RF-029
+
+6. RESTRICTIONS
+RF-029 must be operational
