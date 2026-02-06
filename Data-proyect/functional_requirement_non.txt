@@ -1,0 +1,607 @@
+RNF-001: Data Security - All collected and processed data must be encrypted at rest and in transit
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-001
+Name                   Encryption of Data at Rest and in Transit
+Module                 Security and System Architecture (Cross-cutting)
+Priority               Critical
+Status                 Defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must guarantee the protection of sensitive information collected and processed.
+
+3. PROCESS
+
+1. Definition of Policies: Establishment of mandatory encryption standards
+
+2. Encryption in Transit: Configuration of SSL/TLS certificates on all API endpoints and enabling secure protocols (HTTPS).
+
+4. OUTPUTS
+Encrypted data
+
+5. SOURCE
+Functional requirements
+
+6. RESTRICTIONS
+Do not use obsolete or considered insecure algorithms
+
+
+RNF-002: End-to-End Encryption (E2EE)
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-002
+Name                   End-to-End Encryption (E2EE)
+Module                 Security and Communications (Cross-cutting)
+Priority               Critical
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement an end-to-end encryption (E2EE) scheme for all sensitive information transmitted between system users or stored on their local devices.
+
+3. OUTPUTS
+
+* Secure communications
+
+4. SOURCE
+Modules 1 to 5
+
+5. RESTRICTIONS
+Key Recovery: As it is E2EE, if the user loses their private key or password, data recovery is not possible.
+
+
+RNF-003: Every captured, analyzed or exported data item must have a SHA-512 hash and certified timestamp
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-003
+Name                   Integrity and Digital Chain of Custody (SHA-512 Hash + Certified Timestamp)
+Module                 Security and Forensic Audit (Cross-cutting)
+Priority               Critical
+Status                 Defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must ensure the immutability and forensic integrity of all processed information by automatically generating a SHA-512 cryptographic hash and a certified timestamp (time seal) for each block of information.
+
+3. PROCESS
+
+1. Capture and Hashing: At the exact moment a data item enters the system (API, manual file or listener), its digital fingerprint is calculated using the SHA-512 algorithm.
+
+4. OUTPUTS
+
+* Integrity Record
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+Standard Algorithm: Use of SHA-512 is mandatory
+
+
+RNF-004: Operational Anonymity of the Investigator - Automatic IP Rotation
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-004
+Name                   Operational Anonymity of the Investigator and Automatic IP Rotation
+Module                 Security and Network (Infrastructure / Proxy)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must guarantee the protection of the physical and digital identity of the investigators using the platform.
+
+3. PROCESS
+Automatic IP Rotation: The system must assign a different IP address for each session, query or predefined time interval (e.g. every 5 minutes), randomly selected from a global pool of IPs.
+
+4. OUTPUTS
+
+* Anonymized traffic
+
+5. SOURCE
+Connection device
+
+6. RESTRICTIONS
+Quality of the IP Pool: The IPs used must be of high reputation to avoid request blocking or other issues.
+
+
+RNF-005: Automatic Detection and Blocking of Tracking Attempts
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-005
+Name                   Automatic Detection and Blocking of Tracking Attempts (Anti-Tracking)
+Module                 Security and Identity Protection (Client Layer and Proxy)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement proactive digital defense mechanisms to detect and neutralize tracking techniques used by third parties.
+
+3. PROCESS
+
+1. Blocking of Unsolicited Telemetry: Filter and discard any incoming packet that does not match the expected API.
+
+4. OUTPUTS
+Secure channel
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+Resource consumption – basic optimization required
+RNF-006: Offline Availability
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-INFRA-007
+Name                   Offline Operation Mode (No Internet Availability)
+Module                 Infrastructure and Client (Mobile and Desktop App)
+Priority               Medium
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must allow continuous operation of the application on mobile and desktop devices even in the complete absence of an internet connection.
+
+3. PROCESS
+
+1. Intelligent Local Cache: Securely store data on the device (encrypted local database).
+
+4. OUTPUTS
+
+* Functional interface without network
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+
+* Storage Capacity: The size of the local database must be managed to avoid filling the user's storage.
+
+
+RNF-007: Scalability for Large Cases
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SCAL-008
+Name                   Scalability for Handling Large Cases (Big Data)
+Module                 Infrastructure and Backend Architecture
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must be capable of managing, processing and visualizing massive volumes of data associated with high-level investigations (large cases) without significant performance degradation.
+
+3. PROCESS
+Clean separation of perfectly scalable modules.
+
+4. OUTPUTS
+
+* Resource Metrics: Monitoring of CPU, RAM and Latency demonstrating that the system scales linearly with increasing traffic or data volume.
+
+5. SOURCE
+
+* Input data
+
+6. RESTRICTIONS
+Client-side hardware limitations
+
+
+RNF-008: Mobile Interface
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-UI-010
+Name                   Adaptive User Interface for Mobile Devices (Mobile UI)
+Module                 Frontend / User Experience (Mobile)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must feature a native or hybrid mobile application interface optimized specifically for small touch screens (smartphones and tablets).
+
+3. PROCESS
+
+1. Responsive and Adaptive Design: Implementation of a "Mobile-First" design where UI elements fluidly reorganize
+
+Abstraction of Complexity (Visual Simplification):
+
+* Graphs (Module 2): Instead of displaying the full graph (unreadable on mobile), the interface should offer a "Radar View" or list of key connections
+
+4. OUTPUTS
+
+* Functional Mobile Application
+
+5. SOURCE
+App
+
+6. RESTRICTIONS
+Unlike PC, mobile cannot display dozens of data columns simultaneously. Implementing filter systems is mandatory.
+
+
+RNF-009: Dashboard Designed for Analysts
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-UI-011
+Name                   Analyst Control Dashboard (Analyst Workspace)
+Module                 Frontend / User Experience (Command Center)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must provide a centralized and customizable "Dashboard" interface specifically designed for the workflow of an intelligence analyst.
+
+3. PROCESS
+Allow the analyst to add, remove and rearrange "widgets" or visual components in their main workspace according to their specific needs.
+
+4. OUTPUTS
+
+* Main Command Interface
+
+5. SOURCE
+App
+
+6. RESTRICTIONS
+
+* Information Density: Unlike mobile, analysts on PC typically use large screens (or dual monitors). The dashboard should take advantage of screen width to display more information in parallel (e.g., alerts list on the left and graph summary on the right) instead of a single narrow column layout.
+
+
+RNF-010: Protection Against Evidence Tampering Using SHA Hash
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-012
+Name                   Protection Against Evidence Tampering Using SHA Hash
+Module                 Security and Chain of Custody
+Priority               Critical
+Status                 Defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must guarantee the immutable integrity of all collected digital evidence by verifying the SHA hash (SHA-256 or higher) of relevant data through a verification button.
+
+3. PROCESS
+
+1. The user clicks on "Verify".
+
+2. The system displays a message.
+
+4. OUTPUTS
+Message indicating whether there is a problem (tampering detected or integrity confirmed)
+
+5. SOURCE
+Stored data
+
+6. RESTRICTIONS
+There must be stored data with its corresponding hash
+RNF-011: The system must self-destruct if it detects that it is being analyzed in a virtual or debugging environment
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-013
+Name                   Self-Destruction upon Detection of Virtual or Debugging Environment (Anti-Forensics)
+Module                 Endpoint Security / Application Protection (PC and Mobile)
+Priority               Critical
+Status                 Sensitive / In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement an active defense mechanism (Kill Switch) that continuously monitors the application's execution environment. If indicators are detected that the software is running inside a virtual machine (VM), emulator, sandbox environment, or if a debugger is attached to the process, the system must activate a self-destruct protocol.
+
+3. PROCESS
+
+1. Environment Detection (Environment Check):
+
+   * On PC: Check for typical virtualization artifacts (specific VM video drivers, virtual network card MAC addresses, presence of hypervisor services, constant CPU temperature, forcibly synchronized system clock).
+
+   * On Mobile: Detect if the device is rooted/jailbroken.
+
+4. OUTPUTS
+
+* Session Termination
+
+5. SOURCE
+List of running processes
+
+6. RESTRICTIONS
+
+* Local Data Loss: Self-destruction implies the complete loss of all information. The user must be aware that running in unsafe environments results in the annihilation of local data.
+
+
+RNF-012: Code Obfuscation
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-014
+Name                   Code Obfuscation and Source Code Protection
+Module                 Development Security (DevSecOps)
+Priority               High
+Status                 Defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement rigorous code obfuscation techniques across all layers of the application.
+
+3. PROCESS
+Semantic Renaming: Replace names of variables, functions, classes and parameters in the compiled code with meaningless, random or short character strings.
+
+4. OUTPUTS
+Obfuscated binaries
+Mapping files (Map Files)
+
+5. SOURCE
+Application source code
+
+6. RESTRICTIONS
+Once obfuscated, error reports (Crash Reports) sent to servers will be unreadable unless processed with the private mapping files.
+
+
+RNF-013: Protection against memory dumping
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-015
+Name                   Protection against Memory Dumping (Anti-Memory Dumping)
+Module                 Application Security (Runtime Protection)
+Priority               High
+Status                 Defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The objective is to prevent attackers from performing a "memory dump" to recover information.
+
+3. PROCESS
+Anti-Dump (Fooling the Dumper):
+Modify the executable headers in memory (PE Header / Mach-O) to break the structure expected by dumping tools, causing the generated dump file to be corrupted or unable to be opened by standard analyzers.
+
+4. OUTPUTS
+Protected memory
+
+5. SOURCE
+Memory
+
+6. RESTRICTIONS
+Performance Overhead: Constantly encrypting and decrypting data in memory consumes additional CPU cycles. This protection should be applied selectively only to the most critical data (secrets).
+
+
+RNF-014: Daily renewal of encryption keys
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-016
+Name                   Daily Rotation of Encryption Keys (Key Rotation)
+Module                 Cryptographic Key Management (KMS)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement an automatic cryptographic key rotation policy.
+
+3. PROCESS
+
+Automatic Key Generation (Key Scheduling): A secure service (or the KMS - Key Management Service module) must automatically generate a new key pair or symmetric key daily without manual intervention. The old key set must be immediately archived.
+
+Progressive Re-encryption (Data Re-encryption):
+For new data: Use the keys of the "current day" (Day N) for encryption.
+For existing data (encrypted with Day N-1 keys): The system must initiate a background process to decrypt records with the old key and re-encrypt them with the new key, or maintain an envelope encryption system where the daily "master key" protects the data keys.
+
+4. OUTPUTS
+
+* New Daily Key
+
+5. SOURCE
+System clock (UTC)
+
+6. RESTRICTIONS
+Only for important data.
+
+
+RNF-015: Screen lock if screen capture tools are detected
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-017
+Name                   Screen Lock upon Detection of Capture Tools (Anti-Screen)
+Module                 Interface Security (Frontend / OS Integration)
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must actively monitor the application environment to detect the use of screenshot or video recording tools.
+
+3. PROCESS
+
+1. Operating System Event Monitoring:
+
+   * On PC (Windows/macOS): Listen for operating system events related to screenshots (e.g. Print Screen key, Win+Shift+S). Check if a recording window (such as OBS Studio, Teams, Zoom) is active, overlaid or capturing the application area.
+
+4. OUTPUTS
+
+* Protected Screen
+
+5. SOURCE
+Application
+
+6. RESTRICTIONS
+Detection must be highly accurate to avoid false positives.
+RNF-016: Dummy traffic to hide communication patterns
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-018
+Name                   Generation of Dummy Traffic to Obfuscate Patterns
+Module                 Network Security and Communications
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement a mechanism for continuous and random generation of fictitious network traffic (dummy traffic).
+
+3. PROCESS
+
+1. Injection of Filler Packets (Cover Traffic): The application must generate encrypted data packets of variable sizes and send them periodically.
+
+4. OUTPUTS
+
+* Obfuscated network flow
+
+5. SOURCE
+API requests
+
+6. RESTRICTIONS
+
+* Bandwidth and data consumption
+
+
+RNF-017: Programmable self-destruction
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-019
+Name                   Programmable Self-Destruction Mechanism (Dead Man's Switch)
+Module                 Security and Data Lifecycle Management
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must incorporate a critical security function that allows programming the irreversible destruction of the application and all sensitive data stored on the device after a period of inactivity.
+
+3. PROCESS
+
+1. Timer Configuration:
+
+   * The user or administrator can define a countdown timer
+
+In the "Dead Man's Switch" variant, the timer is automatically reset every time the user successfully authenticates.
+
+4. OUTPUTS
+
+* Clean device (data wiped)
+
+5. SOURCE
+Absence of the investigator
+
+6. RESTRICTIONS
+Irreversible data loss
+
+
+RNF-018: "Reverse honeypot" mode – The system can generate fake data or misleading signals if it detects intrusion attempts
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-020
+Name                   Reverse Honeypot Mode (Active Disinformation)
+Module                 Offensive Security / Active Defense
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must incorporate an active defense mechanism ("Reverse Honeypot") that, upon detecting an unauthorized intrusion attempt, forensic analysis, or environment manipulation, stops presenting real data and begins generating and serving fake data instead.
+
+3. PROCESS
+
+1. Compromise Detection: The system monitors the same conditions as the self-destruct requirement.
+
+2. Generation of Synthetic Data
+
+4. OUTPUTS
+
+* "Zombie" interface (fake data presentation)
+
+5. SOURCE
+Uses criteria from RNF-017 and RNF-016
+
+6. RESTRICTIONS
+
+* Data Coherence: Fake data must be mathematically and logically consistent
+
+
+RNF-019: Internal audit of the investigator's activity
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-AUD-021
+Name                   Internal Audit of Investigator Activity
+Module                 Governance, Compliance and Security
+Priority               High
+Status                 In definition
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must implement a comprehensive logging and monitoring mechanism of all actions performed within each case.
+
+3. PROCESS
+The system captures login and logout events (and other relevant actions).
+
+4. OUTPUTS
+Array / log containing access records
+
+5. SOURCE
+User
+
+
+RNF-020: API encryption
+
+1. GENERAL INFORMATION
+Field                  Detail
+Requirement ID         REQ-SEC-022
+Name                   API Communications Encryption (TLS/Cryptography)
+Module                 Communications Security and Backend
+Priority               Critical
+Status                 Defined
+Version                1.0
+Date                   24/05/2024
+
+2. DESCRIPTION
+The system must ensure that all data communication between the client (Mobile/PC Application) and the server, as well as between internal microservices, is carried out exclusively through encrypted channels.
+
+3. PROCESS
+Security Enforcement (HSTS): Configuration of HTTP Strict Transport Security (HSTS) headers on the server to force clients to always use encrypted connections (HTTPS).
+
+4. OUTPUTS
+
+* Encrypted traffic
+
+5. SOURCE
+Network traffic
+
+6. RESTRICTIONS
+Asymmetric encryption should only be used during the handshake (key exchange).
