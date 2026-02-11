@@ -1,4 +1,4 @@
-Design Overview
+Design Overview with technologies
 Architecture: Clean Architecture + Local-First + Event-Driven, meaning it runs locally 
 on the mobile device without a central database. This was designed to maintain control over sensitive 
 country data and to control who has access to the app.
