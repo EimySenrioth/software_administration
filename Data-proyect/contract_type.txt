@@ -1,0 +1,98 @@
+CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT
+This Agreement is entered into by and between:
+
+[FULL NAME OF THE PUBLIC AGENCY OR ENTITY], represented herein by [NAME OF THE AUTHORIZED OFFICIAL], in their capacity as [Job Title], hereinafter referred to as "THE ENTITY" or the "DISCLOSING PARTY";
+
+And, on the other part:
+
+[FULL NAME OR CORPORATE NAME OF THE CONTRACTOR / COMPANY / INDIVIDUAL], represented herein by 
+[NAME OF THE LEGAL REPRESENTATIVE], with its registered address at [Full Address], hereinafter referred to as 
+"THE CONTRACTOR" or the "RECIPIENT PARTY";
+
+Both parties mutually recognize each other's legal capacity to enter into this instrument and, under penalty of perjury, 
+state the following:
+
+REPRESENTATIONS
+I. THE ENTITY is an agency / body / state-owned entity of the Government of the 
+United Mexican States / the Government of the State of [•] / the Municipality of [•], with the powers conferred upon it by 
+[mention law or decree of creation, e.g., Organic Law of the Federal Public Administration, etc.].
+
+II. THE CONTRACTOR has been selected / awarded / hired to provide services / develop the project / collaborate in 
+[brief description of the main contract object, e.g., "AcBi Development," "Cybersecurity Consulting Services," etc.], 
+pursuant to contract / service order / agreement number [•] dated [DD/MM/YYYY] (hereinafter the "Main Contract").
+
+III. For the execution of the Main Contract, THE ENTITY will provide or allow access to certain information, documents, 
+data, systems, databases, technical specifications, source codes, plans, strategies, reserved, classified, 
+or sensitive information (hereinafter the "Confidential Information").
+
+IV. Both parties have an interest in ensuring that such information is adequately protected and not disclosed, 
+reproduced, used, or exploited outside of the purposes strictly necessary to fulfill the Main Contract.
+
+V. The parties acknowledge that the Confidential Information may constitute industrial secrets, reserved information, 
+confidential information, or personal data held by obligated subjects, as applicable, under the terms of the 
+governing legislation.
+
+Therefore, the parties agree to enter into this CONFIDENTIALITY AGREEMENT subject to the following:
+
+CLAUSES
+FIRST. DEFINITION OF CONFIDENTIAL INFORMATION Confidential Information shall mean all information in any format 
+(written, electronic, oral, visual, magnetic, digital, etc.) that THE ENTITY provides or to which THE CONTRACTOR has access by 
+virtue of the Main Contract, including but not limited to:
+
+Personal data.
+
+Reserved or classified information.
+
+Technical specifications, plans, diagrams, algorithms, source codes, and objects.
+
+Strategies, methodologies, know-how, and processes.
+
+Financial, operational, security, or intelligence information.
+
+Any data that THE ENTITY marks as confidential or which, by its nature, should be treated as such.
+
+SECOND. OBLIGATIONS OF THE CONTRACTOR THE CONTRACTOR agrees to: 
+a) Use the Confidential Information exclusively to fulfill the object of the Main Contract. 
+b) Not disclose, reproduce, copy, transmit, publish, or communicate the Confidential Information to third parties by 
+any means without the express written authorization of THE ENTITY. 
+c) Implement appropriate physical, technical, 
+and administrative security measures to protect the Confidential Information (at least at the same level as it 
+protects its own sensitive information). d) Limit access to the Confidential Information only to personnel 
+for whom it is strictly necessary and who have signed an individual confidentiality commitment with equivalent obligations. 
+e) Immediately notify THE ENTITY of any access, use, disclosure, or suspected breach of confidentiality. 
+f) Return or destroy (and certify the destruction of) all Confidential Information upon termination of the Main Contract or when requested by THE ENTITY.
+
+THIRD. EXCEPTIONS Information shall not be considered Confidential Information if it: 
+a) Is or becomes part of the public domain through no breach of this Agreement. 
+b) Was already legitimately known by THE CONTRACTOR prior to receipt. 
+c) Is received in good faith from a third party without an obligation of confidentiality. 
+d) Must be disclosed by legal mandate, final judicial resolution, or requirement of a competent authority 
+(in which case THE ENTITY must be notified in advance so it may exercise its rights of defense).
+
+FOURTH. TERM (VALIDITY) This Agreement shall enter into force upon its signing and shall remain 
+in effect during the execution of the Main Contract and for an additional term of [5 or 10 years] 
+from the date of its termination, or for as long as the information retains its reserved or confidential 
+status according to the law.
+
+FIFTH. LIABILITY FOR BREACH Any breach shall be considered a serious cause for termination of the 
+Main Contract and shall give rise to:
+
+Civil and/or criminal liability.
+
+Payment of damages and losses.
+
+Application of administrative sanctions provided for in the General Law of Administrative Responsibilities and 
+other applicable public sector laws.
+
+SIXTH. GOVERNING LAW AND JURISDICTION This Agreement shall be governed by the laws of the United Mexican States. 
+For all matters related to its interpretation and fulfillment, the parties submit to the jurisdiction of the competent 
+courts located in [Mexico City / State Capital / Municipality], waiving any other jurisdiction.
+
+Having read this document and being aware of its content and legal scope, the parties sign it in agreement in [City], 
+on the [Day] of [Month], [Year].
+
+FOR THE ENTITY [NAME AND TITLE] [Signature and Seal]
+
+FOR THE CONTRACTOR [NAME OF LEGAL REPRESENTATIVE] [Signature and Seal]
+
+WITNESSES (Optional) [Name and Signature] | [Name and Signature]

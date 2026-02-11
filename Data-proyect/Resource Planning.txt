@@ -1,0 +1,89 @@
+Resource Planning
+Resource planning for the "AcBi" project allocates human, material, 
+and financial assets to achieve the development 
+objectives for the mobile/PC application within a 6-month timeframe.
+
+Technologies
+The following technologies were selected for the development of the "AcBi" project:
+
+Table of technologies
+| Category                       | Technology                       | Purpose/Goal                                                                                                                             |
+| ------------------------------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Frontend (UI & Visualizations) | React (with JavaScript)          | Build the main dashboard, timelines, and interactive charts.                                                                             |
+| Frontend (UI & Visualizations) | vis.js & D3.js                   | Create dynamic diagrams.                                                                                                                 |
+| Backend/Core (Business Logic)  | Rust                             | Implement the obfuscated core, including entities (e.g., Officials, Companies) and main modules; protection against reverse engineering. |
+| Backend/Core (Business Logic)  | Serde & Reqwest                  | Handle JSON serialization and resilient HTTP clients for the API Config Manager.                                                         |
+| Backend/Core (Business Logic)  | Go & Python                      | Simpler concurrent logic for modules such as Process Tracking.                                                                           |
+| Backend/Core (Business Logic)  | C++                              | Used in high-performance critical sections.                                                                                              |
+| Framework & Multiplatform      | Tauri 2.0 Mobile                 | Bridge between frontend (React) and backend (Rust), handling IPC/Commands.                                                               |
+| Framework & Multiplatform      | Ionic                            | Web-native integration for interactive UI.                                                                                               |
+| Framework & Multiplatform      | React Native (Option 2)          | Mobile-first approach without Tauri, ideal for native UI in performance-heavy environments.                                              |
+| Database & Storage             | SQLCipher/rusqlite (AES-256-GCM) | Encrypted local storage.                                                                                                                 |
+| Database & Storage             | Realm                            | Embedded mobile DB for fast queries in high-volume local data scenarios.                                                                 |
+| Security & Cryptography        | SHA Family                       | Hash generation.                                                                                                                         |
+| Security & Cryptography        | wolfSSL                          | VPN support.                                                                                                                             |
+| Security & Cryptography        | Custom Rust (Anti-forensics)     | Sandbox and memory dump detection.                                                                                                       |
+| Security & Cryptography        | Obfuscator.io (JS)               | Code obfuscation for frontend/backend to prevent reverse engineering.                                                                    |
+| Infrastructure & Resilience    | Local-first                      | Full offline operation; resilient API client via Tor for external public registries.                                                     |
+| Testing & Quality              | Jest (JS) & Cargo test (Rust)    | Unit testing for frontend and backend code.                                                                                              |
+| Testing & Quality              | Appium                           | E2E testing for mobile environments (e.g., API Manager flows).                                                                           |
+| Testing & Quality              | OWASP ZAP                        | Security testing for mobile vulnerabilities and E2EE validation.                                                                         |
+| Testing & Quality              | Cypress / Burp Suite / SonarQube | Alternatives for integration testing, ethical hacking, and static code analysis.                                                         |
+
+Table of Team (8 people – 6 months full-time)
+
+| # | Role                    | Level   | Qty | Key Responsibilities                                    | Monthly Salary (MXN) | 6-Month Total (MXN) |
+| - | ----------------------- | ------- | --- | ------------------------------------------------------- | -------------------- | ------------------- |
+| 1 | Sr. Crypto & Security   | Senior  | 1   | E2EE, anti-forensics, self-destruct, sandbox detection. | 68k – 75k            | ~$426,000           |
+| 2 | Sr. Rust & Architecture | Senior  | 1   | Binary obfuscation, Tor integration, anti-dumping.      | 65k – 72k            | ~$411,000           |
+| 3 | Frontend Developer      | Mid     | 1   | React, TS, D3.js, interactive dashboards.               | 32k – 42k            | ~$222,000           |
+| 4 | Backend Rust Dev        | Mid     | 1   | Data Listener, Network Analysis, Process Tracking.      | 32k – 40k            | ~$216,000           |
+| 5 | Integration / Mobile    | Mid/Jr+ | 1   | Tauri 2.0, IPC, Rust ↔ JS commands, bug fixing.         | 28k – 38k            | ~$198,000           |
+| 6 | Full-Stack / Support    | Jr/Mid  | 1   | General support for FE/BE, cross-cutting tasks.         | 25k – 35k            | ~$180,000           |
+| 7 | Tester / Security Eng.  | Senior  | 1   | Pentesting, OWASP Mobile, E2EE validation.              | 45k – 55k            | ~$300,000           |
+| 8 | PM / Scrum Master       | —       | 1   | Coordination, backlog, agile ceremonies.                | 22k – 28k            | ~$150,000           |
+
+
+Personnel Cost Summary (Average Estimate):
+2 Senior Crypto/Architecture Developers: ≈ MXN 837,000
+4 Mid/Junior Developers: ≈ MXN 816,000
+1 Senior Security Tester: ≈ MXN 300,000
+1 Part-Time Project Manager: ≈ MXN 150,000 Total Personnel Costs for 6 Months ≈ MXN 2,103,000 – 2,350,000
+Material Resources
+Mode: 100% Remote
+Main Tools (Cost ≈ 0): VS Code, Rust, Tauri, React, GitHub, GitLab, ClickUp / Linear / Jira, Discord/Slack
+Physical Testing Devices: 5 Mid-to-High-End Android/iOS Devices for Real-World Testing MXN 80,000 – 110,000 (Investment) (initial)
+2 computers: 100,000 MXN
+
+
+Tantative new role
+| Role                       | Level             | Primary Specialty | Estimated Monthly Salary (MXN) | 6-Month Total (MXN) |
+| -------------------------- | ----------------- | ----------------- | ------------------------------ | ------------------- |
+| Cryptography Mathematician | Senior (5+ years) | Algorithm Design  | $55,000 – $65,000              | ~$330,000*          |
+
+Table of phases
+| Phase                                         | Weeks | % of Total Time      | Main Activities                                                                       | Roles with Highest Effort                                         | Important Notes                                                           |
+| --------------------------------------------- | ----- | -------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| 1. Initiation & Definition                    | 1–2   | ~8%                  | Kick-off, detailed requirements, final architecture, security design, threat modeling | PM, Senior Crypto #1, Senior Rust, Mathematician                  | Critical phase in security projects — must not be skipped                 |
+| 2. Crypto Research & Prototyping              | 3–5   | ~12.5%               | Custom algorithm design (if applicable), primitive validation, anti-forensics PoC     | Mathematician, Senior Crypto #1, Senior Rust                      | Determines whether custom crypto will be built or standard libraries used |
+| 3. Core Development (Rust)                    | 4–12  | ~37.5%               | Rust core implementation: entities, Data Listener, Network Analysis, etc.             | Senior Rust, Mid Rust, Mathematician (validation), Junior support | Longest and most critical phase — core provides the main differentiator   |
+| 4. Frontend Development + Visualizations      | 6–14  | ~37.5% (parallel)    | Dashboard, timelines, interactive charts, drag-and-drop                               | Mid Frontend, Junior Full-Stack                                   | Can begin once minimal backend APIs are available                         |
+| 5. Multiplatform Integration (Tauri / Mobile) | 10–16 | ~29% (parallel)      | Rust ↔ React bridge, IPC commands, event channels, mobile builds                      | Mid Integration, Mid Frontend, Tester (early testing)             | Starts when core has basic functionality                                  |
+| 6. Security & Anti-Forensics                  | 8–18  | ~46% (cross-cutting) | E2EE implementation/refinement, obfuscation, sandbox detection, self-destruct         | Senior Crypto #1, Mathematician, Senior Tester                    | Continuous parallel effort — never “left for the end”                     |
+| 7. Intensive Testing + QA                     | 14–21 | ~33%                 | Unit, integration, E2E (Appium), pentesting, anti-forensics validation                | Senior Tester, all developers (bug fixing)                        | Often delayed — testing must start early                                  |
+| 8. Polishing, Performance & Beta              | 18–22 | ~21%                 | Optimizations, bug fixing, real device testing, closed beta                           | Entire team + Tester                                              | Includes testing on 5 physical devices                                    |
+| 9. Closure & Delivery                         | 22–24 | ~12.5%               | Final documentation, delivery, training (if applicable), final packaging              | PM, Senior Rust, Tester, Mid Integration                          | Buffer for unforeseen issues (highly recommended)                         |
+
+
+Table of costs
+| Concept                                  | Estimated Amount (MXN)    | Notes                                      |
+| ---------------------------------------- | ------------------------- | ------------------------------------------ |
+| Monthly Team Cost (9 people)             | ~370,000 MXN/month        | Average based on previous salary estimates |
+| Total Personnel Cost (9 months)          | 3,330,000                 | Full-time team                             |
+| Test Devices + Accessories               | 100,000 – 150,000         | Initial investment                         |
+| Paid Tools (Burp, Sonar, etc.)           | 50,000 – 120,000          | Approximate annual licenses                |
+| Contingencies / Unexpected Costs         | 400,000 – 800,000         | Recommended 12–20% of personnel budget     |
+| **Total Estimated 9-Month Project Cost** | **3,880,000 – 4,400,000** | Equivalent to ~39–44% of a 10M MXN budget  |
+
+Assuming a fee of 10 million to 12 million pesos, taking into account if it is 9 months.
+

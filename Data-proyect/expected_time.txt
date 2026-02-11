@@ -1,0 +1,10 @@
+considerar el tiempo, recurso humano es decir el numero de desarrolladore
+describirlo de acuerdo a las habilidadex, senior in database eg,
+junionr, y los que necesito, testers
+para el timepo, considerar el esfuerzo, es dcir como distribuirlos
+Añadir los salarios, electricity, lugar, herramientas, elesfuerzo,
+usar una metrica, 
+quien es el cliente, osea las carasteristicas, tipo de contrato, 
+que tipo de proyecto es, tipo de metodologia, 
+tipo de desarrollo, tipo de arquitectura, tipo de base de datos, tipo de 
+lenguaje, tipo de framework, tipo de testing, 

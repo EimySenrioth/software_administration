@@ -1,0 +1,33 @@
+Development: Methodology and Architecture Types
+The "AcBi" project is a multiplatform mobile application designed for researchers for the proactive detection of corruption. We will utilize an Agile methodology (specifically Scrum), which allows for development in short cycles and rapid adaptation to evolving security requirements. The system follows a Clean Architecture approach, organizing code into independent layers to facilitate maintenance, portability, and feature integration—all executed locally on mobile devices without external dependencies.
+
+Development Approach
+I will follow a Hybrid Development model: combining web technologies (React with JavaScript for interactive UIs like dashboards, 
+timelines, and charts via vis.js and D3.js) with native performance (Rust for critical logic and obfuscation, 
+complemented by Serde and Reqwest for JSON and HTTP management).
+
+I will incorporate Go and Python for concurrent logic in modules such as Process Tracking, and C++ for 
+high-performance sections if required. The full lifecycle will be managed from initial design (Tauri 2.0 Mobile 
+or Ionic for web-native integration, with React Native as a secondary option for native UI) through to app store deployment.
+
+The focus is on Local-First and Offline development for maximum resilience, using local CI/CD for secure builds. 
+Comprehensive testing will be conducted using Jest and Cargo for unit tests, Appium for E2E, and OWASP ZAP for security 
+(with alternatives like Cypress, Burp Suite, and SonarQube), ensuring anonymity and counter-intelligence protection in 
+every iteration.
+
+Architectural Design
+The structure combines Clean Architecture with Local-First and Event-Driven patterns. To maintain total control 
+over sensitive data, the app runs entirely on the mobile device (Android/iOS) without central servers. The code is 
+divided into clearly separated layers:
+
+UI Layer (Frontend): React with vis.js and D3.js for the dashboard, visualizations, and dynamic diagrams.
+
+Core Layer (Backend): Rust for entities and main modules (Data Listener, Network Analysis, etc.), using Serde/Reqwest 
+for API management, with support for Go, Python, or C++ in concurrent or performance-heavy subcomponents.
+
+Infrastructure Layer: * Database: Encrypted local storage using SQLCipher/rusqlite (AES-256-GCM) or Realm for high-speed queries.
+
+Security: SHA family for hashing, wolfSSL for cryptography and VPN support, and custom Rust-based anti-forensics 
+(sandbox and memory dump detection).
+
+Obfuscation: Obfuscator.io for code protection.
