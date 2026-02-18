@@ -18,9 +18,6 @@ Noise Threshold: A configurable metric for detecting inconsistencies in data tim
 Honeypot Inverso: A defensive mechanism generating fake data upon intrusion detection.
 Local-First: Design where all processing occurs on the device, with optional external access.
 
-1.3 References
-
-IEEE Std 830-1998: Recommended Practice for Software Requirements Specifications.
 
 2. Overall Description
 2.1 Product Perspective

@@ -30,7 +30,7 @@ Table of technologies
 | Testing & Quality              | OWASP ZAP                        | Security testing for mobile vulnerabilities and E2EE validation.                                                                         |
 | Testing & Quality              | Cypress / Burp Suite / SonarQube | Alternatives for integration testing, ethical hacking, and static code analysis.                                                         |
 
-Table of Team (8 people – 6 months full-time)
+Table of Team (8 people – 6 months full-time):
 
 | # | Role                    | Level   | Qty | Key Responsibilities                                    | Monthly Salary (MXN) | 6-Month Total (MXN) |
 | - | ----------------------- | ------- | --- | ------------------------------------------------------- | -------------------- | ------------------- |
@@ -56,7 +56,7 @@ Physical Testing Devices: 5 Mid-to-High-End Android/iOS Devices for Real-World T
 2 computers: 100,000 MXN
 
 
-Tantative new role
+Tantative new role:
 | Role                       | Level             | Primary Specialty | Estimated Monthly Salary (MXN) | 6-Month Total (MXN) |
 | -------------------------- | ----------------- | ----------------- | ------------------------------ | ------------------- |
 | Cryptography Mathematician | Senior (5+ years) | Algorithm Design  | $55,000 – $65,000              | ~$330,000*          |
@@ -75,7 +75,7 @@ Table of phases
 | 9. Closure & Delivery                         | 22–24 | ~12.5%               | Final documentation, delivery, training (if applicable), final packaging              | PM, Senior Rust, Tester, Mid Integration                          | Buffer for unforeseen issues (highly recommended)                         |
 
 
-Table of costs
+Table of costs:
 | Concept                                  | Estimated Amount (MXN)    | Notes                                      |
 | ---------------------------------------- | ------------------------- | ------------------------------------------ |
 | Monthly Team Cost (9 people)             | ~370,000 MXN/month        | Average based on previous salary estimates |

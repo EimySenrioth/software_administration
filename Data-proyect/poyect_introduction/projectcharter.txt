@@ -1,4 +1,4 @@
-Project Charter: Development of a Mobile Platform for Corruption Detection
+Project Charter: Development of a Platform for Corruption Detection
 
 The “AcBi” project consists of the design and development of a cross-platform mobile application 
 (Android and iOS) aimed at researchers, journalists, and civil society organizations for the proactive 
