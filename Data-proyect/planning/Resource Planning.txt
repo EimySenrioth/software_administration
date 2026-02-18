@@ -4,9 +4,9 @@ and financial assets to achieve the development
 objectives for the mobile/PC application within a 6-month timeframe.
 
 Technologies
-The following technologies were selected for the development of the "AcBi" project:
+The following technologies were selected for the development of the "AcBi" project, as shown in the Table 1 & 2:
 
-Table of technologies
+Table 1. Technologies
 | Category                       | Technology                       | Purpose/Goal                                                                                                                             |
 | ------------------------------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | Frontend (UI & Visualizations) | React (with JavaScript)          | Build the main dashboard, timelines, and interactive charts.                                                                             |
@@ -30,7 +30,7 @@ Table of technologies
 | Testing & Quality              | OWASP ZAP                        | Security testing for mobile vulnerabilities and E2EE validation.                                                                         |
 | Testing & Quality              | Cypress / Burp Suite / SonarQube | Alternatives for integration testing, ethical hacking, and static code analysis.                                                         |
 
-Table of Team (8 people – 6 months full-time):
+Table 2. Team (8 people – 6 months full-time) (como se muestra en la tabla):
 
 | # | Role                    | Level   | Qty | Key Responsibilities                                    | Monthly Salary (MXN) | 6-Month Total (MXN) |
 | - | ----------------------- | ------- | --- | ------------------------------------------------------- | -------------------- | ------------------- |
@@ -44,7 +44,7 @@ Table of Team (8 people – 6 months full-time):
 | 8 | PM / Scrum Master       | —       | 1   | Coordination, backlog, agile ceremonies.                | 22k – 28k            | ~$150,000           |
 
 
-Personnel Cost Summary (Average Estimate):
+Personnel Cost Summary (Average Estimate), as shown in the Table 3, 4 & 5:
 2 Senior Crypto/Architecture Developers: ≈ MXN 837,000
 4 Mid/Junior Developers: ≈ MXN 816,000
 1 Senior Security Tester: ≈ MXN 300,000
@@ -56,12 +56,12 @@ Physical Testing Devices: 5 Mid-to-High-End Android/iOS Devices for Real-World T
 2 computers: 100,000 MXN
 
 
-Tantative new role:
+Table 3. Tentative new role 
 | Role                       | Level             | Primary Specialty | Estimated Monthly Salary (MXN) | 6-Month Total (MXN) |
 | -------------------------- | ----------------- | ----------------- | ------------------------------ | ------------------- |
 | Cryptography Mathematician | Senior (5+ years) | Algorithm Design  | $55,000 – $65,000              | ~$330,000*          |
 
-Table of phases
+Table 4. Project Phases 
 | Phase                                         | Weeks | % of Total Time      | Main Activities                                                                       | Roles with Highest Effort                                         | Important Notes                                                           |
 | --------------------------------------------- | ----- | -------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | 1. Initiation & Definition                    | 1–2   | ~8%                  | Kick-off, detailed requirements, final architecture, security design, threat modeling | PM, Senior Crypto #1, Senior Rust, Mathematician                  | Critical phase in security projects — must not be skipped                 |
@@ -75,7 +75,7 @@ Table of phases
 | 9. Closure & Delivery                         | 22–24 | ~12.5%               | Final documentation, delivery, training (if applicable), final packaging              | PM, Senior Rust, Tester, Mid Integration                          | Buffer for unforeseen issues (highly recommended)                         |
 
 
-Table of costs:
+Table 5. Project Costs 
 | Concept                                  | Estimated Amount (MXN)    | Notes                                      |
 | ---------------------------------------- | ------------------------- | ------------------------------------------ |
 | Monthly Team Cost (9 people)             | ~370,000 MXN/month        | Average based on previous salary estimates |

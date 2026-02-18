@@ -16,7 +16,7 @@ Comprehensive testing will be conducted using Jest and Cargo for unit tests, App
 every iteration.
 
 Architectural Design
-The structure combines Clean Architecture with Local-First and Event-Driven patterns. To maintain total control 
+The structure are Clean Architecture with Local-First. To maintain total control 
 over sensitive data, the app runs entirely on the mobile device (Android/iOS) without central servers. The code is 
 divided into clearly separated layers:
 

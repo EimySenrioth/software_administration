@@ -39,7 +39,7 @@ Generation of relational timelines by politician/institution/project.
 Calculation of the "noise threshold" (inconsistencies between declared and observed information).
 Temporal comparison: official statements vs. captured signals.
 Detection of approvals before official requests (Basic Time Paradox).
-Algorithms to predict the probability of corruption based on historical noise (Advanced Time Paradox).
+Algorithms to predict the probability of corruption based on historical noise (Time Paradox).
 User-configurable threshold (e.g., >25% noise = high alert).
 Comparative visualization of timelines (official vs. observed).
 Detection of unexplained "skips" in the authorization flow. Recording of specific contradictions (e.g., "politician claims to be unaware of the company, but a family member is a partner").

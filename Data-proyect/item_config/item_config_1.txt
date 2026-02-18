@@ -1,0 +1,74 @@
+Change Request: Incorporation of User-API Editing Features (DELETE, EDIT) and API Usage History Logging for Auditing
+
+Change Request Description:
+RF-007: API EDITING - DELETE, EDIT
+RF-010: API MANAGER
+Request Date: February 18, 2026
+Requester: Government
+Description: Implement an API usage history log that records all API invocations for the add, delete, and edit operations.
+Reasons for the Change: Government auditing requirement.
+Impact on the Project:
+Affected Modules: Module 1: Data Listener
+RF-007: API EDITING - DELETE, EDIT
+RF-010: API MANAGER
+Planning and Timeline: Adds 1 additional week of work, distributed across development, integration, and testing phases. This extends the total timeline from 6 months to approximately 6 months and 1 week (25 weeks total).
+Associated Risks: Requires additional security measures to prevent leaks in the history log.
+Approval: Pending
+Additional Effort Estimate: 40-50 hours of development (mainly Backend Rust Dev and Senior Crypto & Security for history encryption).
+
+Updated Team Configuration
+Based on the original planning, the change request is incorporated without adding new roles, but redistributing efforts. The team remains at 9 people (including the Cryptography Mathematician as a tentative role already considered). Responsibilities are adjusted to cover API history development and DELETE/EDIT operations.
+
+Updated Table 2. Team (9 people – 6 months + 1 week full-time):
+
+# | Role                        | Level    | Qty | Key Responsibilities (Updated)                                                                 | Monthly Salary (MXN) | 6.25-Month Total (MXN)
+--|-----------------------------|----------|-----|------------------------------------------------------------------------------------------------|----------------------|------------------------
+1 | Sr. Crypto & Security       | Senior   | 1   | E2EE, anti-forensics, self-destruct, sandbox detection; encryption implementation for API history log. | 68k – 75k           | ~$445,625
+2 | Sr. Rust & Architecture     | Senior   | 1   | Binary obfuscation, Tor integration, anti-dumping; architecture design for DELETE/EDIT in User-API.   | 65k – 72k           | ~$430,625
+3 | Frontend Developer          | Mid      | 1   | React, TS, D3.js, interactive dashboards; UI updates for API editing.                                 | 32k – 42k           | ~$232,500
+4 | Backend Rust Dev            | Mid      | 1   | Data Listener, Network Analysis, Process Tracking; API history integration in Module 1 and DELETE/EDIT operations. | 32k – 40k       | ~$225,000
+5 | Integration / Mobile        | Mid/Jr+  | 1   | Tauri 2.0, IPC, Rust ↔ JS commands, bug fixing; mobile integration of audit history.                  | 28k – 38k           | ~$207,500
+6 | Full-Stack / Support        | Jr/Mid   | 1   | General FE/BE support, cross-cutting tasks; support in testing new API features.                      | 25k – 35k           | ~$188,750
+7 | Tester / Security Eng.      | Senior   | 1   | Pentesting, OWASP Mobile, E2EE validation; security validation for API history and auditing.          | 45k – 55k           | ~$313,750
+8 | PM / Scrum Master           | —        | 1   | Coordination, backlog, agile ceremonies; change request management and timeline adjustments.          | 22k – 28k           | ~$157,500
+9 | Cryptography Mathematician  | Senior   | 1   | Algorithm Design; cryptographic validation of hashing in API history log.                             | 55k – 65k           | ~$345,625
+
+Updated Personnel Cost Summary (Estimated Average):
+3 Seniors (Crypto/Architecture/Mathematician): ≈ MXN 1,221,875
+4 Mid/Junior Developers: ≈ MXN 853,750
+1 Senior Security Tester: ≈ MXN 313,750
+1 Part-Time Project Manager: ≈ MXN 157,500
+Total Personnel Cost for 6.25 Months ≈ MXN 2,546,875 – 2,850,000 (Increase of ~MXN 443,875 – 500,000 due to the 1-week extension).
+
+Updated Material Resources
+No changes
+
+Updated Project Phases
+Adds 1 week total, distributed across affected phases (Core Development, Security & Anti-Forensics, Intensive Testing). Timeline extended to 25 weeks.
+
+Updated Table 4. Project Phases:
+
+Phase                                    | Weeks    | % of Total Time | Main Activities (Updated)                                                                                  | Roles with Highest Effort                  | Important Notes
+-----------------------------------------|----------|-----------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------|---------------------------------------------------------------
+1. Initiation & Definition               | 1–2      | ~8%             | Kick-off, detailed requirements, final architecture, security design, threat modeling; update of functional requirements for DELETE/EDIT and API history. | PM, Senior Crypto #1, Senior Rust, Mathematician | Critical phase in security projects — must not be skipped; includes definition of updated RFs.
+2. Crypto Research & Prototyping         | 3–5      | ~12%            | Custom algorithm design (if applicable), primitive validation, anti-forensics PoC; hashing prototype for history. | Mathematician, Senior Crypto #1, Senior Rust | Determines whether custom crypto will be built or standard libraries used.
+3. Core Development (Rust)               | 4–13     | ~40%            | Rust core implementation: entities, Data Listener, Network Analysis, etc.; DELETE/EDIT implementation in User-API and integration with Data Listener. | Senior Rust, Mid Rust, Mathematician (validation), Junior support | Longest and most critical phase — core provides the main differentiator; +1 week added.
+4. Frontend Development + Visualizations | 6–14     | ~36% (parallel) | Dashboard, timelines, interactive charts, drag-and-drop; UI for API editing.                               | Mid Frontend, Junior Full-Stack            | Can begin once minimal backend APIs are available.
+5. Multiplatform Integration (Tauri / Mobile) | 10–16 | ~28% (parallel) | Rust ↔ React bridge, IPC commands, event channels, mobile builds; history integration on mobile.           | Mid Integration, Mid Frontend, Tester      | Starts when core has basic functionality.
+6. Security & Anti-Forensics             | 8–19     | ~48% (cross-cutting) | E2EE implementation/refinement, obfuscation, sandbox detection, self-destruct; security for API history (encryption & audit). | Senior Crypto #1, Mathematician, Senior Tester | Continuous parallel effort — never “left for the end”; +1 partial week.
+7. Intensive Testing + QA                | 14–22    | ~36%            | Unit, integration, E2E (Appium), pentesting, anti-forensics validation; testing of DELETE/EDIT and history export. | Senior Tester, all developers (bug fixing) | Often delayed — testing must start early; +1 week added.
+8. Polishing, Performance & Beta         | 19–23    | ~20%            | Optimizations, bug fixing, real device testing, closed beta.                                               | Entire team + Tester                       | Includes testing on 5 physical devices.
+9. Closure & Delivery                    | 23–25    | ~12%            | Final documentation, delivery, training (if applicable), final packaging; inclusion of API audit manual.  | PM, Senior Rust, Tester, Mid Integration   | Buffer for unforeseen issues (highly recommended); adjusted due to extension.
+
+Updated Project Costs
+
+Updated Table 5. Project Costs:
+
+Concept                              | Estimated Amount (MXN)     | Notes
+-------------------------------------|----------------------------|---------------------------------------------------------------
+Monthly Team Cost (9 people)         | ~370,000 MXN/month         | Average based on previous salary estimates
+Total Personnel Cost (6.25 months)   | 2,546,875 – 2,850,000      | Full-time team; adjustment for 1-week extension (approx. 0.25 months).
+Test Devices + Accessories           | 100,000 – 150,000          | Initial investment
+Paid Tools (Burp, Sonar, etc.)       | 50,000 – 120,000           | Approximate annual licenses; includes tools for API testing.
+Contingencies / Unexpected Costs     | 450,000 – 850,000          | Recommended 12–20% of personnel budget; increased due to change request.
+Total Estimated 6.25-Month Project Cost | 3,062,500 – 3,625,000   | Equivalent to ~31–36% of a 10M MXN budget; assuming fee of 10-12M MXN.
