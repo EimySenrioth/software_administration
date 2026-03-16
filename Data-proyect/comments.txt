@@ -2,3 +2,6 @@
 homework, thon a change request and configuration item
 2-20-2026
 leer el paper the configration control task en moodle
+2-27-2026
+delimiated the app, what-do and - do-not = scope
+create a document

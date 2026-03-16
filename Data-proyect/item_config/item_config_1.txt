@@ -5,7 +5,7 @@ Request Date: February 18, 2026
 Requester: Government
 Impact on the Project:
 Affected Modules: Module 1: Data Listener
-RF-007: API EDITING - DELETE, EDIT
+RF-007: API EDITING 
 RF-010: API MANAGER
 Planning and Timeline: Adds 1 additional week of work, distributed across development, integration, and testing phases. This extends the total timeline from 6 months to approximately 6 months and 1 week (25 weeks total).
 Associated Risks: Requires additional security measures to prevent leaks in the history log.
@@ -56,15 +56,4 @@ Phase                                    | Weeks    | % of Total Time | Main Act
 8. Polishing, Performance & Beta         | 19–23    | ~20%            | Optimizations, bug fixing, real device testing, closed beta.                                               | Entire team + Tester                       | Includes testing on 5 physical devices.
 9. Closure & Delivery                    | 23–25    | ~12%            | Final documentation, delivery, training (if applicable), final packaging; inclusion of API audit manual.  | PM, Senior Rust, Tester, Mid Integration   | Buffer for unforeseen issues (highly recommended); adjusted due to extension.
 
-Updated Project Costs
 
-Updated Table 5. Project Costs:
-
-Concept                              | Estimated Amount (MXN)     | Notes
--------------------------------------|----------------------------|---------------------------------------------------------------
-Monthly Team Cost (9 people)         | ~370,000 MXN/month         | Average based on previous salary estimates
-Total Personnel Cost (6.25 months)   | 2,546,875 – 2,850,000      | Full-time team; adjustment for 1-week extension (approx. 0.25 months).
-Test Devices + Accessories           | 100,000 – 150,000          | Initial investment
-Paid Tools (Burp, Sonar, etc.)       | 50,000 – 120,000           | Approximate annual licenses; includes tools for API testing.
-Contingencies / Unexpected Costs     | 450,000 – 850,000          | Recommended 12–20% of personnel budget; increased due to change request.
-Total Estimated 6.25-Month Project Cost | 3,062,500 – 3,625,000   | Equivalent to ~31–36% of a 10M MXN budget; assuming fee of 10-12M MXN.

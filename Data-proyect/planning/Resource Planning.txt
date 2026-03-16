@@ -56,34 +56,5 @@ Physical Testing Devices: 5 Mid-to-High-End Android/iOS Devices for Real-World T
 2 computers: 100,000 MXN
 
 
-Table 3. Tentative new role 
-| Role                       | Level             | Primary Specialty | Estimated Monthly Salary (MXN) | 6-Month Total (MXN) |
-| -------------------------- | ----------------- | ----------------- | ------------------------------ | ------------------- |
-| Cryptography Mathematician | Senior (5+ years) | Algorithm Design  | $55,000 – $65,000              | ~$330,000*          |
 
-Table 4. Project Phases 
-| Phase                                         | Weeks | % of Total Time      | Main Activities                                                                       | Roles with Highest Effort                                         | Important Notes                                                           |
-| --------------------------------------------- | ----- | -------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| 1. Initiation & Definition                    | 1–2   | ~8%                  | Kick-off, detailed requirements, final architecture, security design, threat modeling | PM, Senior Crypto #1, Senior Rust, Mathematician                  | Critical phase in security projects — must not be skipped                 |
-| 2. Crypto Research & Prototyping              | 3–5   | ~12.5%               | Custom algorithm design (if applicable), primitive validation, anti-forensics PoC     | Mathematician, Senior Crypto #1, Senior Rust                      | Determines whether custom crypto will be built or standard libraries used |
-| 3. Core Development (Rust)                    | 4–12  | ~37.5%               | Rust core implementation: entities, Data Listener, Network Analysis, etc.             | Senior Rust, Mid Rust, Mathematician (validation), Junior support | Longest and most critical phase — core provides the main differentiator   |
-| 4. Frontend Development + Visualizations      | 6–14  | ~37.5% (parallel)    | Dashboard, timelines, interactive charts, drag-and-drop                               | Mid Frontend, Junior Full-Stack                                   | Can begin once minimal backend APIs are available                         |
-| 5. Multiplatform Integration (Tauri)          | 10–16 | ~29% (parallel)      | Rust ↔ React bridge, IPC commands, event channels, mobile builds                      | Mid Integration, Mid Frontend, Tester (early testing)             | Starts when core has basic functionality                                  |
-| 6. Security & Anti-Forensics                  | 8–18  | ~46% (cross-cutting) | E2EE implementation/refinement, obfuscation, sandbox detection, self-destruct         | Senior Crypto #1, Mathematician, Senior Tester                    | Continuous parallel effort — never “left for the end”                     |
-| 7. Intensive Testing + QA                     | 14–21 | ~33%                 | Unit, integration, E2E (Appium), pentesting, anti-forensics validation                | Senior Tester, all developers (bug fixing)                        | Often delayed — testing must start early                                  |
-| 8. Polishing, Performance & Beta              | 18–22 | ~21%                 | Optimizations, bug fixing, real device testing, closed beta                           | Entire team + Tester                                              | Includes testing on 5 physical devices                                    |
-| 9. Closure & Delivery                         | 22–24 | ~12.5%               | Final documentation, delivery, training (if applicable), final packaging              | PM, Senior Rust, Tester, Mid Integration                          | Buffer for unforeseen issues (highly recommended)                         |
-
-
-Table 5. Project Costs 
-| Concept                                  | Estimated Amount (MXN)    | Notes                                      |
-| ---------------------------------------- | ------------------------- | ------------------------------------------ |
-| Monthly Team Cost (9 people)             | ~370,000 MXN/month        | Average based on previous salary estimates |
-| Total Personnel Cost (9 months)          | 3,330,000                 | Full-time team                             |
-| Test Devices + Accessories               | 100,000 – 150,000         | Initial investment                         |
-| Paid Tools (Burp, Sonar, etc.)           | 50,000 – 120,000          | Approximate annual licenses                |
-| Contingencies / Unexpected Costs         | 400,000 – 800,000         | Recommended 12–20% of personnel budget     |
-| **Total Estimated 9-Month Project Cost** | **3,880,000 – 4,400,000** | Equivalent to ~39–44% of a 10M MXN budget  |
-
-Assuming a fee of 10 million to 12 million pesos, taking into account if it is 9 months.
 
